@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionPrefix>1.0.0</VersionPrefix>
     <Authors>KC3PIB</Authors>
     <Copyright>KC3PIB</Copyright>
     <Title>WsjtxUtils.WsjtxMessages</Title>
