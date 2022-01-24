@@ -4,7 +4,7 @@ A class library and usage examples related to interacting with [WSJT-X](https://
 ## Packages
 Precompiled packages are available via NuGet.
 |Package|NuGet Stable|NuGet Pre-release|
-|--|--|--|
+|:--|:--|:--|
 |[WsjtxUtils.WsjtxMessages](https://www.nuget.org/packages/WsjtxUtils.WsjtxMessages/)|[![WsjtxUtils.WsjtxMessages](https://img.shields.io/nuget/v/WsjtxUtils.WsjtxMessages.svg)](https://www.nuget.org/packages/WsjtxUtils.WsjtxMessages/)|[![WsjtxUtils.WsjtxMessages](https://img.shields.io/nuget/vpre/WsjtxUtils.WsjtxMessages.svg)](https://www.nuget.org/packages/WsjtxUtils.WsjtxMessages/)|
 |[WsjtxUtils.WsjtxUdpServer](https://www.nuget.org/packages/WsjtxUtils.WsjtxUdpServer/)|[![WsjtxUtils.WsjtxUdpServer](https://img.shields.io/nuget/v/WsjtxUtils.WsjtxUdpServer.svg)](https://www.nuget.org/packages/WsjtxUtils.WsjtxUdpServer/)|[![WsjtxUtils.WsjtxUdpServer](https://img.shields.io/nuget/vpre/WsjtxUtils.WsjtxUdpServer.svg)](https://www.nuget.org/packages/WsjtxUtils.WsjtxUdpServer/)|
 
