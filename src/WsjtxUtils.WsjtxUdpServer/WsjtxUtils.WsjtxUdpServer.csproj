@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Authors>KC3PIB</Authors>
+    <Copyright>KC3PIB</Copyright>
+    <Title>WsjtxUtils.WsjtxUdpServer</Title>
+    <Description>A lightweight, multicast-capable, asynchronous UDP server for WSJT-X.</Description>
+    <PackageProjectUrl>https://github.com/KC3PIB/WsjtxUtils</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/KC3PIB/WsjtxUtils</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ham;amateur;radio;UDP;WSJT-X;FT8;FT4;WSPR;JT65</PackageTags>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Link="LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WsjtxUtils.WsjtxMessages\WsjtxUtils.WsjtxMessages.csproj" />
+  </ItemGroup>
+
+</Project>

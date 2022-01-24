@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$authors$</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/KC3PIB/WsjtxUtils/</projectUrl>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
+    <dependencies>
+      <group targetFramework="net6.0" />
+    </dependencies>
+  </metadata>  
+</package>
