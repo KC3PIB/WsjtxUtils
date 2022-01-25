@@ -21,6 +21,15 @@
         }
 
         /// <summary>
+        /// Constructs a WSJT-X Configure message
+        /// </summary>
+        /// <param name="id"></param>
+        public Configure(string id) : base(MessageType.Configure)
+        {
+            Id = id;
+        }
+
+        /// <summary>
         /// The selected WSJT-X mode
         /// </summary>
         public string Mode { get; set; } = string.Empty;

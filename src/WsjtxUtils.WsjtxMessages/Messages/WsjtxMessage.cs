@@ -6,14 +6,22 @@
     public abstract class WsjtxMessage
     {
         /// <summary>
-        /// Constructor for a base WSJT-X message
+        /// Constructor for base WSJT-X message
         /// </summary>
         /// <param name="messageType">The type of WSJT-X message</param>
-        protected WsjtxMessage(MessageType messageType)
+        protected WsjtxMessage(MessageType messageType) : this(string.Empty, messageType)
+        {
+        }
+
+        /// <summary>
+        /// Constructor for base WSJT-X message
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="messageType"></param>
+        protected WsjtxMessage(string id, MessageType messageType)
         {
             MessageType = messageType;
-            Id = string.Empty;
-            SchemaVersion = SchemaVersion.Version2;
+            Id = id;
         }
 
         /// <summary>
@@ -30,12 +38,12 @@
         /// <remarks>
         /// http://doc.qt.io/qt-5/datastreamformat.html
         /// </remarks>
-        public SchemaVersion SchemaVersion { get; set; }
+        public SchemaVersion SchemaVersion { get; set; } = SchemaVersion.Version2;
 
         /// <summary>
         /// The type of WSJT-X message
         /// </summary>
-        public MessageType MessageType { get; set; }
+        public MessageType MessageType { get; private set; }
 
         /// <summary>
         /// The unique id for the client
