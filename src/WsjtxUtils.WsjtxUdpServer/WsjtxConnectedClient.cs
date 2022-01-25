@@ -36,6 +36,7 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <summary>
         /// The last status message from the connected client
         /// </summary>
+        /// <remarks>Null if the status is unknown</remarks>
         public Status? Status { get; set; }
 
         /// <summary>

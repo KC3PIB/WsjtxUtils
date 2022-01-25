@@ -53,7 +53,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read a single byte from the packet
+        /// Read a single byte from the buffer
         /// </summary>
         /// <returns></returns>
         public byte ReadByte()
@@ -62,7 +62,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read a boolean value from the packet
+        /// Read a boolean value from the buffer
         /// </summary>
         /// <returns></returns>
         public bool ReadBool()
@@ -71,7 +71,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read an Int16 to the packet
+        /// Read an Int16 to the buffer
         /// </summary>
         public short ReadInt16()
         {
@@ -81,7 +81,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read an UInt16 to the packet
+        /// Read an UInt16 to the buffer
         /// </summary>
         public ushort ReadUInt16()
         {
@@ -91,7 +91,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read an Int32 from the packet
+        /// Read an Int32 from the buffer
         /// </summary>
         /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
@@ -103,7 +103,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read an Int32 from the packet
+        /// Read an Int32 from the buffer
         /// </summary>
         /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
@@ -115,7 +115,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read an Int64 from the packet
+        /// Read an Int64 from the buffer
         /// </summary>
         /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
@@ -127,7 +127,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read an Int64 from the packet
+        /// Read an Int64 from the buffer
         /// </summary>
         /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
@@ -139,7 +139,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read a double from the packet
+        /// Read a double from the buffer
         /// </summary>
         /// <returns></returns>
         public double ReadDouble()
@@ -148,7 +148,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read a string from the packet
+        /// Read a string from the buffer
         /// </summary>
         /// <returns></returns>
         public string ReadString()
@@ -168,7 +168,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Read the packet schema version
+        /// Read the schema version
         /// </summary>
         /// <returns></returns>
         public SchemaVersion ReadSchemaVersion()

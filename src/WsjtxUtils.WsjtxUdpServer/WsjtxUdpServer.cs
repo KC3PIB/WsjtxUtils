@@ -72,7 +72,6 @@ namespace WsjtxUtils.WsjtxUdpServer
 
             // check if the address is multicast and setup accordingly
             IsMulticast = IsAddressMulticast(address);
-
             LocalEndpoint = IsMulticast ?
                 new IPEndPoint(IPAddress.Any, port) :
                 new IPEndPoint(address, port);
@@ -211,10 +210,8 @@ namespace WsjtxUtils.WsjtxUdpServer
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                // read the datagram into the buffer or continue on timeout
+                // wait for and read the next datagram into the buffer
                 var result = await _socket.ReceiveFromAsync(datagramBuffer, SocketFlags.None, LocalEndpoint, cancellationToken);
-
-                // deserialize the message
                 var message = datagramBuffer.DeserializeWsjtxMessage();
 
                 // get the correct handler for the given message type
