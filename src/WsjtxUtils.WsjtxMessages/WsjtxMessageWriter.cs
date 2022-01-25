@@ -38,7 +38,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write an Int16 to the packet
+        /// Write an Int16 to the buffer
         /// </summary>
         /// <param name="value"></param>
         public void WriteInt16(short value)
@@ -48,7 +48,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write an UInt16 to the packet
+        /// Write an UInt16 to the buffer
         /// </summary>
         /// <param name="value"></param>
         public void WriteUInt16(ushort value)
@@ -58,7 +58,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write an Int32 to the packet
+        /// Write an Int32 to the buffer
         /// </summary>
         /// <returns></returns>
         public void WriteInt32(int value)
@@ -68,7 +68,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write an Int32 to the packet
+        /// Write an Int32 to the buffer
         /// </summary>
         /// <returns></returns>
         public void WriteUInt32(uint value)
@@ -78,7 +78,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write an Int64 to the packet
+        /// Write an Int64 to the buffer
         /// </summary>
         /// <returns></returns>
         public void WriteInt64(long value)
@@ -88,7 +88,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write an UInt64 to the packet
+        /// Write an UInt64 to the buffer
         /// </summary>
         /// <returns></returns>
         public void WriteUInt64(ulong value)
@@ -98,7 +98,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write a double to the packet
+        /// Write a double to the buffer
         /// </summary>
         /// <param name="value"></param>
         public void WriteDouble(double value)
@@ -107,7 +107,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write a string to the packet
+        /// Write a string to the buffer
         /// </summary>
         /// <param name="value"></param>
         public void WriteString(string value)

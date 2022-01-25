@@ -168,7 +168,7 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="status"></param>
         private void AddUpdateOrExpireClient(string clientId, EndPoint endpoint, Status? status = null)
         {
-            // add or update the last communications time for a client
+            // add or update a connected client while updating the last communication time
             bool isNewClient = false;
             ConnectedClients.AddOrUpdate(clientId,
                 (id) =>
@@ -185,12 +185,14 @@ namespace WsjtxUtils.WsjtxUdpServer
                     return client;
                 });
 
-            // execute callbacks on a new client
+            // execute the client connected callback if this is a new client
             if (isNewClient)
                 ClientConnectedCallback?.Invoke(ConnectedClients[clientId]);
 
-            // find all clients which have not communicated with the server
-            // for the window specified in lastHeardWindowSeconds and remove
+            // build a list of all clients which have not communicated with
+            // the server for the window specified in lastHeardWindowSeconds
+            // and remove those clients from the connected clients list while
+            // executing the client expired callback on each client found
             var expiredClients = ConnectedClients.Values
                    .Where(target => (DateTime.UtcNow - target.LastCommunications).TotalSeconds > ConnectedClientExpiryInSeconds)
                    .Select(target => target.ClientId);

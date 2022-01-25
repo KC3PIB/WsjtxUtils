@@ -4,7 +4,7 @@ using WsjtxUtils.WsjtxMessages.Messages;
 namespace WsjtxUtils.WsjtxMessages
 {
     /// <summary>
-    /// Helper methods used to create and write WSJT-X messages
+    /// Extension methods used to create and write WSJT-X messages
     /// </summary>
     public static class WsjtxMessageExtensions
     {
