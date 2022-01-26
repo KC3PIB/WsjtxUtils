@@ -40,9 +40,9 @@ namespace WsjtxUtils.WsjtxUdpServer.Tests
             var clientA = new WsjtxConnectedClient("test-client-a", new IPEndPoint(IPAddress.Loopback, 2237), null);
             var clientB = new WsjtxConnectedClient("test-client-b", new IPEndPoint(IPAddress.Loopback, 2238), null);
 
-            clientConnectedFunc.Setup(callback => callback.Invoke(It.IsAny<WsjtxConnectedClient>()));
-            clientClosedFunc.Setup(callback => callback.Invoke(It.IsAny<WsjtxConnectedClient>()));
-            clientExpiredFunc.Setup(callback => callback.Invoke(It.IsAny<WsjtxConnectedClient>()));
+            clientConnectedFunc.Setup(callback => callback!.Invoke(It.IsAny<WsjtxConnectedClient>()));
+            clientClosedFunc.Setup(callback => callback!.Invoke(It.IsAny<WsjtxConnectedClient>()));
+            clientExpiredFunc.Setup(callback => callback!.Invoke(It.IsAny<WsjtxConnectedClient>()));
 
             // Act
 
@@ -60,8 +60,8 @@ namespace WsjtxUtils.WsjtxUdpServer.Tests
 
             // assert that connected clients list is correct
             Assert.IsTrue(handler.ConnectedClients.Count == 2);
-            Assert.IsTrue(handler.ConnectedClients.Keys.Contains(clientA.ClientId));
-            Assert.IsTrue(handler.ConnectedClients.Keys.Contains(clientB.ClientId));
+            Assert.IsTrue(handler.ConnectedClients.ContainsKey(clientA.ClientId));
+            Assert.IsTrue(handler.ConnectedClients.ContainsKey(clientB.ClientId));
             Assert.IsNull(handler.ConnectedClients[clientA.ClientId].Status);
             Assert.IsNotNull(handler.ConnectedClients[clientB.ClientId].Status);
 
@@ -79,9 +79,9 @@ namespace WsjtxUtils.WsjtxUdpServer.Tests
             Assert.IsTrue(handler.ConnectedClients.Count == 1);
 
             // Verify
-            clientConnectedFunc.Verify(callback => callback.Invoke(It.IsAny<WsjtxConnectedClient>()), Times.Exactly(3));
-            clientClosedFunc.Verify(callback => callback.Invoke(It.IsAny<WsjtxConnectedClient>()), Times.Once);
-            clientExpiredFunc.Verify(callback => callback.Invoke(It.IsAny<WsjtxConnectedClient>()), Times.Once);
+            clientConnectedFunc.Verify(callback => callback!.Invoke(It.IsAny<WsjtxConnectedClient>()), Times.Exactly(3));
+            clientClosedFunc.Verify(callback => callback!.Invoke(It.IsAny<WsjtxConnectedClient>()), Times.Once);
+            clientExpiredFunc.Verify(callback => callback!.Invoke(It.IsAny<WsjtxConnectedClient>()), Times.Once);
         }
     }
 }

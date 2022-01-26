@@ -225,7 +225,7 @@ namespace WsjtxUtils.WsjtxUdpServer
                     MessageType.Close => _messageHandler.HandleClosedMessageAsync(this, (Close)message, result.RemoteEndPoint, cancellationToken),
                     MessageType.WSPRDecode => _messageHandler.HandleWSPRDecodeMessageAsync(this, (WSPRDecode)message, result.RemoteEndPoint, cancellationToken),
                     MessageType.LoggedADIF => _messageHandler.HandleLoggedAdifMessageAsync(this, (LoggedAdif)message, result.RemoteEndPoint, cancellationToken),
-                    _ => throw new NotImplementedException()
+                    _ => null // no handler for unsupported messages
                 };
             }
         }
