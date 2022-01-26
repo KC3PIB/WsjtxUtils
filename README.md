@@ -31,7 +31,7 @@ Clear message = new()
 };
 
 var buffer = GC.AllocateArray<byte>(1500, false);
-var numOfBytesWritten = message.WriteMessageTo(buffer);
+var numberOfBytesSent = message.WriteMessageTo(buffer);
 ```
 ## WsjtxUtils.WsjtxUdpServer
 [WsjtxUdpServer](src/WsjtxUtils.WsjtxUdpServer/WsjtxUdpServer.cs) is a lightweight, multicast-capable, asynchronous UDP server for WSJT-X clients. [IWsjtxUdpMessageHandler](src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) describes an interface that allows WsjtxUdpServer to handle all potential incoming messages from WSJT-X.  Create a class that implements [IWsjtxUdpMessageHandler](src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) and pass this class to the UDP server's constructor to begin processing messages asynchronously.
