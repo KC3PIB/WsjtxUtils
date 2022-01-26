@@ -15,6 +15,14 @@
         {
         }
 
+        /// <summary>
+        /// WSJT-X Close message
+        /// </summary>
+        /// <param name="id"></param>
+        public Close(string id) : base(id, MessageType.Close)
+        {
+        }
+
         #region IWsjtxDirectionOut
         /// <summary>
         ///  Using the <see cref="WsjtxMessageReader"/>, deserialize the values to the current message

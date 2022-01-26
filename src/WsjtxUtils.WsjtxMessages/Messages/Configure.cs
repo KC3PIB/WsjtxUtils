@@ -24,9 +24,8 @@
         /// Constructs a WSJT-X Configure message
         /// </summary>
         /// <param name="id"></param>
-        public Configure(string id) : base(MessageType.Configure)
+        public Configure(string id) : base(id, MessageType.Configure)
         {
-            Id = id;
         }
 
         /// <summary>

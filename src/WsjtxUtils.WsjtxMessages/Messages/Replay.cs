@@ -19,6 +19,14 @@
         {
         }
 
+        /// <summary>
+        /// Constructs a WSJT-X Replay message
+        /// </summary>
+        /// <param name="id"></param>
+        public Replay(string id) : base(id, MessageType.Replay)
+        {
+        }
+
         #region IWsjtxDirectionIn
         /// <summary>
         /// Using the <see cref="WsjtxMessageWriter"/>, serialize the message to raw bytes

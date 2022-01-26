@@ -26,9 +26,8 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="gridSquare"></param>
-        public Location(string id, string gridSquare) : base(MessageType.Location)
+        public Location(string id, string gridSquare) : base(id, MessageType.Location)
         {
-            Id = id;
             LocationGridSquare = gridSquare;
         }
 

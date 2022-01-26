@@ -22,9 +22,8 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="autoTxOnly"></param>
-        public HaltTx(string id, bool autoTxOnly) : base(MessageType.HaltTx)
+        public HaltTx(string id, bool autoTxOnly) : base(id, MessageType.HaltTx)
         {
-            Id = id;
             AutoTxOnly = autoTxOnly;
         }
 

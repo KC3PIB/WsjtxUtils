@@ -22,9 +22,8 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="configurationName"></param>
-        public SwitchConfiguration(string id, string configurationName) : base(MessageType.SwitchConfiguration)
+        public SwitchConfiguration(string id, string configurationName) : base(id, MessageType.SwitchConfiguration)
         {
-            Id = id;
             ConfigurationName = configurationName;
         }
 

@@ -41,9 +41,8 @@
         /// <param name="message"></param>
         /// <param name="lowConfidence"></param>
         /// <param name="modifiers"></param>
-        public Reply(string id, uint time, int snr, float offsetTimeSeconds, uint offsetFrequencyHz, string mode, string message, bool lowConfidence, KeyboardModifiers modifiers = KeyboardModifiers.None) : base(MessageType.Reply)
+        public Reply(string id, uint time, int snr, float offsetTimeSeconds, uint offsetFrequencyHz, string mode, string message, bool lowConfidence, KeyboardModifiers modifiers = KeyboardModifiers.None) : base(id, MessageType.Reply)
         {
-            Id = id;
             Time = time;
             Snr = snr;
             OffsetTimeSeconds = offsetTimeSeconds;

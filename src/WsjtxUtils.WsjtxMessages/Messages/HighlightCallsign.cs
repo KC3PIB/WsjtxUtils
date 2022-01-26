@@ -40,9 +40,8 @@ namespace WsjtxUtils.WsjtxMessages.Messages
         /// <param name="backgroundColor"></param>
         /// <param name="foregroundColor"></param>
         /// <param name="highlightLast"></param>
-        public HighlightCallsign(string id, string callsign, QColor backgroundColor, QColor foregroundColor, bool highlightLast = false) : base(MessageType.HighlightCallsign)
+        public HighlightCallsign(string id, string callsign, QColor backgroundColor, QColor foregroundColor, bool highlightLast = false) : base(id, MessageType.HighlightCallsign)
         {
-            Id = id;
             Callsign = callsign;
             BackgroundColor = backgroundColor;
             ForegroundColor = foregroundColor;

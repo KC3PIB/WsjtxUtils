@@ -27,9 +27,8 @@
         /// <param name="version"></param>
         /// <param name="revision"></param>
         /// <param name="maximumSchemaNumber"></param>
-        public Heartbeat(string id, string version, string revision, SchemaVersion maximumSchemaNumber = SchemaVersion.Version3) : base(MessageType.Heartbeat)
+        public Heartbeat(string id, string version, string revision, SchemaVersion maximumSchemaNumber = SchemaVersion.Version3) : base(id, MessageType.Heartbeat)
         {
-            Id = id;
             Version = version;
             Revision = revision;
             MaximumSchemaNumber = maximumSchemaNumber;
