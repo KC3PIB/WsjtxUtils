@@ -33,7 +33,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
         [TestMethod()]
         public void WriteFreeTextMessageTo_RawBytes_ProducesValidOutput()
         {
-            Configure message = new("WSJT-X - Slice-A") { Mode = "FT4"};
+            Configure message = new("WSJT-X - Slice-A") { Mode = "FT4" };
 
             // Allocate memory and write the message
             var buffer = new byte[ConfigureMessage.Length];
