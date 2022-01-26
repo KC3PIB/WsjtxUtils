@@ -76,7 +76,7 @@ namespace WsjtxUtils.WsjtxMessages
         public short ReadInt16()
         {
             short result = BinaryPrimitives.ReadInt16BigEndian(buffer.Span.Slice(Position, 2));
-            Position += 2;
+            Position += WsjtxConstants.SizeOfShort;
             return result;
         }
 
@@ -86,7 +86,7 @@ namespace WsjtxUtils.WsjtxMessages
         public ushort ReadUInt16()
         {
             ushort result = BinaryPrimitives.ReadUInt16BigEndian(buffer.Span.Slice(Position, 2));
-            Position += 2;
+            Position += WsjtxConstants.SizeOfShort;
             return result;
         }
 
@@ -98,7 +98,7 @@ namespace WsjtxUtils.WsjtxMessages
         public int ReadInt32()
         {
             int result = BinaryPrimitives.ReadInt32BigEndian(buffer.Span.Slice(Position, 4));
-            Position += 4;
+            Position += WsjtxConstants.SizeOfInt;
             return result;
         }
 
@@ -110,7 +110,7 @@ namespace WsjtxUtils.WsjtxMessages
         public uint ReadUInt32()
         {
             uint result = BinaryPrimitives.ReadUInt32BigEndian(buffer.Span.Slice(Position, 4));
-            Position += 4;
+            Position += WsjtxConstants.SizeOfInt;
             return result;
         }
 
@@ -122,7 +122,7 @@ namespace WsjtxUtils.WsjtxMessages
         public long ReadInt64()
         {
             long result = BinaryPrimitives.ReadInt64BigEndian(buffer.Span.Slice(Position, 8));
-            Position += 8;
+            Position += WsjtxConstants.SizeOfLong;
             return result;
         }
 
@@ -134,7 +134,7 @@ namespace WsjtxUtils.WsjtxMessages
         public ulong ReadUInt64()
         {
             ulong result = BinaryPrimitives.ReadUInt64BigEndian(buffer.Span.Slice(Position, 8));
-            Position += 8;
+            Position += WsjtxConstants.SizeOfLong;
             return result;
         }
 

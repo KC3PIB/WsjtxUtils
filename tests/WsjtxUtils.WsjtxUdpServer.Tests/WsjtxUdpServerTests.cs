@@ -39,40 +39,38 @@ namespace WsjtxUtils.WsjtxUdpServer.Tests
 
             var port = new Random().Next(1024, 65534);
 
-            using (var server = new WsjtxUdpServer(mockHandler.Object, IPAddress.Loopback, port))
-            using (var client = new UdpClient())
-            {
-                var serverEndpoint = new IPEndPoint(IPAddress.Loopback, port);
-                var cancellationTokenSource = new CancellationTokenSource();
+            using var server = new WsjtxUdpServer(mockHandler.Object, IPAddress.Loopback, port);
+            using var client = new UdpClient();
+            var serverEndpoint = new IPEndPoint(IPAddress.Loopback, port);
+            var cancellationTokenSource = new CancellationTokenSource();
 
-                // Act
-                server.Start(cancellationTokenSource);
+            // Act
+            server.Start(cancellationTokenSource);
 
-                client.Send(HeartbeatMessage.Span, serverEndpoint);
-                client.Send(StatusMessage.Span, serverEndpoint);
-                client.Send(DecodeMessage.Span, serverEndpoint);
-                client.Send(ClearMessage.Span, serverEndpoint);
-                client.Send(OsoLoggedMessage.Span, serverEndpoint);
-                client.Send(CloseMessage.Span, serverEndpoint);
-                client.Send(WSPRDecodeMessage.Span, serverEndpoint);
-                client.Send(LoggedAdiMessage.Span, serverEndpoint);
+            client.Send(HeartbeatMessage.Span, serverEndpoint);
+            client.Send(StatusMessage.Span, serverEndpoint);
+            client.Send(DecodeMessage.Span, serverEndpoint);
+            client.Send(ClearMessage.Span, serverEndpoint);
+            client.Send(OsoLoggedMessage.Span, serverEndpoint);
+            client.Send(CloseMessage.Span, serverEndpoint);
+            client.Send(WSPRDecodeMessage.Span, serverEndpoint);
+            client.Send(LoggedAdiMessage.Span, serverEndpoint);
 
-                // Assert
-                Assert.IsTrue(server.IsRunning);
-                Assert.IsFalse(server.IsMulticast);
+            // Assert
+            Assert.IsTrue(server.IsRunning);
+            Assert.IsFalse(server.IsMulticast);
 
-                Thread.Sleep(1000);
+            Thread.Sleep(1000);
 
-                // Verify 
-                mockHandler.Verify(handler => handler.HandleHeartbeatMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Heartbeat>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()));
-                mockHandler.Verify(handler => handler.HandleStatusMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Status>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()));
-                mockHandler.Verify(handler => handler.HandleDecodeMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Decode>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
-                mockHandler.Verify(handler => handler.HandleClearMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Clear>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
-                mockHandler.Verify(handler => handler.HandleQsoLoggedMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<QsoLogged>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
-                mockHandler.Verify(handler => handler.HandleClosedMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Close>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
-                mockHandler.Verify(handler => handler.HandleWSPRDecodeMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<WSPRDecode>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
-                mockHandler.Verify(handler => handler.HandleLoggedAdifMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<LoggedAdif>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
-            }
+            // Verify 
+            mockHandler.Verify(handler => handler.HandleHeartbeatMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Heartbeat>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()));
+            mockHandler.Verify(handler => handler.HandleStatusMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Status>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()));
+            mockHandler.Verify(handler => handler.HandleDecodeMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Decode>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
+            mockHandler.Verify(handler => handler.HandleClearMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Clear>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
+            mockHandler.Verify(handler => handler.HandleQsoLoggedMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<QsoLogged>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
+            mockHandler.Verify(handler => handler.HandleClosedMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Close>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
+            mockHandler.Verify(handler => handler.HandleWSPRDecodeMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<WSPRDecode>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
+            mockHandler.Verify(handler => handler.HandleLoggedAdifMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<LoggedAdif>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()), Times.Exactly(1));
         }
 
         [TestMethod()]
