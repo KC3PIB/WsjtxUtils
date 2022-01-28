@@ -70,16 +70,16 @@ namespace WsjtxUtils.WsjtxUdpServer
             // set the message handling object
             _messageHandler = wsjtxUdpMessageHandler;
 
+            // size of the buffers to allocate for reading/writing
+            _datagramBufferSize = datagramBufferSize;
+
             // check if the address is multicast and setup accordingly
             IsMulticast = IsAddressMulticast(address);
             LocalEndpoint = IsMulticast ?
                 new IPEndPoint(IPAddress.Any, port) :
                 new IPEndPoint(address, port);
 
-            // size of the buffers to allocate for reading/writing
-            _datagramBufferSize = datagramBufferSize;
-
-            // setup UDP socket allowing for shared addresses and a shorter receive timeout
+            // setup UDP socket allowing for shared addresses
             _socket = new Socket(SocketType.Dgram, ProtocolType.Udp)
             {
                 ExclusiveAddressUse = false
@@ -145,9 +145,12 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <typeparam name="T"></typeparam>
         /// <param name="remoteEndpoint"></param>
         /// <param name="message"></param>
-        /// <returns></returns>
+        /// <returns>The number of bytes sent</returns>
         public int SendMessageTo<T>(EndPoint remoteEndpoint, T message) where T : WsjtxMessage, IWsjtxDirectionIn
         {
+            if (string.IsNullOrEmpty(message.Id))
+                throw new ArgumentException(nameof(message), $"The client id can not be null or empty when sending {typeof(T).Name}.");
+
             var datagramBuffer = GC.AllocateArray<byte>(_datagramBufferSize, true);
             var bytesWritten = message.WriteMessageTo(datagramBuffer);
             return _socket.SendTo(datagramBuffer, bytesWritten, SocketFlags.None, remoteEndpoint);
@@ -160,9 +163,12 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="remoteEndpoint"></param>
         /// <param name="message"></param>
         /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <returns>The number of bytes sent</returns>
         public async ValueTask<int> SendMessageToAsync<T>(EndPoint remoteEndpoint, T message, CancellationToken cancellationToken = default) where T : WsjtxMessage, IWsjtxDirectionIn
         {
+            if (string.IsNullOrEmpty(message.Id))
+                throw new ArgumentException(nameof(message), $"The client id can not be null or empty when sending {typeof(T).Name}.");
+
             var datagramBuffer = GC.AllocateArray<byte>(_datagramBufferSize, true).AsMemory();
             var bytesWritten = message.WriteMessageTo(datagramBuffer);
             return await _socket.SendToAsync(datagramBuffer[..bytesWritten], SocketFlags.None, remoteEndpoint, cancellationToken);

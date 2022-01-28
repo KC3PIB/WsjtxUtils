@@ -18,7 +18,7 @@
         /// <summary>
         /// Constructs a default WSJT-X LoggedAdif message
         /// </summary>
-        public LoggedAdif() : base(MessageType.LoggedADIF)
+        public LoggedAdif() : base(string.Empty, MessageType.LoggedADIF)
         {
             AdifText = string.Empty;
         }

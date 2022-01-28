@@ -19,7 +19,7 @@
         /// <summary>
         /// Constructs a default WSJT-X WSPRDecode message
         /// </summary>
-        public WSPRDecode() : base(MessageType.WSPRDecode)
+        public WSPRDecode() : base(string.Empty, MessageType.WSPRDecode)
         {
             Callsign = string.Empty;
             Grid = string.Empty;

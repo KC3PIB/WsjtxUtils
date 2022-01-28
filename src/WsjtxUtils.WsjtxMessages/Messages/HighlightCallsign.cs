@@ -26,27 +26,8 @@ namespace WsjtxUtils.WsjtxMessages.Messages
         /// <summary>
         /// Constructs a default WSJT-X HighlightCallsign message
         /// </summary>
-        public HighlightCallsign() : base(MessageType.HighlightCallsign)
+        public HighlightCallsign() : this(string.Empty, string.Empty, QColors.ClearColor, QColors.ClearColor)
         {
-            BackgroundColor = QColors.ClearColor;
-            ForegroundColor = QColors.ClearColor;
-        }
-
-        /// <summary>
-        /// Constructs a WSJT-X HighlightCallsign message
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="callsign"></param>
-        /// <param name="backgroundColor"></param>
-        /// <param name="foregroundColor"></param>
-        /// <param name="highlightLast"></param>
-        public HighlightCallsign(string id, string callsign, QColor backgroundColor, QColor foregroundColor, bool highlightLast = false) : base(MessageType.HighlightCallsign)
-        {
-            Id = id;
-            Callsign = callsign;
-            BackgroundColor = backgroundColor;
-            ForegroundColor = foregroundColor;
-            HighlightLast = highlightLast;
         }
 
         /// <summary>
@@ -62,9 +43,25 @@ namespace WsjtxUtils.WsjtxMessages.Messages
         }
 
         /// <summary>
+        /// Constructs a WSJT-X HighlightCallsign message
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="callsign"></param>
+        /// <param name="backgroundColor"></param>
+        /// <param name="foregroundColor"></param>
+        /// <param name="highlightLast"></param>
+        public HighlightCallsign(string id, string callsign, QColor backgroundColor, QColor foregroundColor, bool highlightLast = false) : base(id, MessageType.HighlightCallsign)
+        {
+            Callsign = callsign;
+            BackgroundColor = backgroundColor;
+            ForegroundColor = foregroundColor;
+            HighlightLast = highlightLast;
+        }
+
+        /// <summary>
         /// The specified callsign to highlight
         /// </summary>
-        public string Callsign { get; set; } = string.Empty;
+        public string Callsign { get; set; }
 
         /// <summary>
         /// Background color

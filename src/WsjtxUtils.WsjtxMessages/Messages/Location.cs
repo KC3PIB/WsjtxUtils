@@ -16,9 +16,8 @@
         /// <summary>
         /// Constructs a default WSJT-X Location message
         /// </summary>
-        public Location() : base(MessageType.Location)
+        public Location() : this(string.Empty, string.Empty)
         {
-            LocationGridSquare = string.Empty;
         }
 
         /// <summary>
@@ -26,9 +25,8 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="gridSquare"></param>
-        public Location(string id, string gridSquare) : base(MessageType.Location)
+        public Location(string id, string gridSquare) : base(id, MessageType.Location)
         {
-            Id = id;
             LocationGridSquare = gridSquare;
         }
 

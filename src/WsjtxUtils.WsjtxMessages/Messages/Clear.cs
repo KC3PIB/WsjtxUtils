@@ -15,7 +15,7 @@
         /// <summary>
         /// Constructs a default WSJT-X Clear message
         /// </summary>
-        public Clear() : base(MessageType.Clear)
+        public Clear() : this(string.Empty, ClearWindow.BandActivity)
         {
         }
 
@@ -24,9 +24,8 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="window"></param>
-        public Clear(string id, ClearWindow window) : base(MessageType.Clear)
+        public Clear(string id, ClearWindow window) : base(id, MessageType.Clear)
         {
-            Id = id;
             Window = window;
         }
 

@@ -15,7 +15,15 @@
         /// <summary>
         /// Constructs a default WSJT-X Replay message
         /// </summary>
-        public Replay() : base(MessageType.Replay)
+        public Replay() : this(string.Empty)
+        {
+        }
+
+        /// <summary>
+        /// Constructs a WSJT-X Replay message
+        /// </summary>
+        /// <param name="id"></param>
+        public Replay(string id) : base(id, MessageType.Replay)
         {
         }
 

@@ -15,26 +15,26 @@ Precompiled packages are available via NuGet.
 - [WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS](#wsjtxutilswsjtxudpserverexampleupdategridfromgps)
 
 ## WsjtxUtils.WsjtxMessages
-The WsjtxMessages library contains the classes and methods needed to serialize and deserialize WSJT-X messages in the QT QDataStream format specified in the WSJT-X source code in [NetworkMessage.hpp](https://sourceforge.net/p/wsjt/wsjtx/ci/master/tree/Network/NetworkMessage.hpp).
+The [WsjtxMessages](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxMessages) library contains the classes and methods needed to serialize and deserialize WSJT-X messages in the QT QDataStream format specified in the WSJT-X source code in [NetworkMessage.hpp](https://sourceforge.net/p/wsjt/wsjtx/ci/master/tree/Network/NetworkMessage.hpp).
 
 We can easily read messages from a memory source using the extensions methods provided.
 ```csharp
 Memory<byte> source= new(new byte[] { 0xAD, 0xBC, 0xCB, 0xDA, 0x00, 0x00, ... };
 WsjtxMessage? message = source.DeserializeWsjtxMessage();
 ```
+
 We can write messages to a memory source just as quickly.
 ```csharp
-Clear message = new()
-{
-    Id = "WSJT-X",
-    Window = ClearWindow.BandActivity
-};
+Clear message = new("WSJT-X", ClearWindow.BandActivity);
 
 var buffer = GC.AllocateArray<byte>(1500, false);
-var numOfBytesWritten = message.WriteMessageTo(buffer);
+var numberOfBytesWritten = message.WriteMessageTo(buffer);
 ```
+
+[WsjtxUtils.WsjtxMessages](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxMessages) does not contain a server implementation to allow flexibility and use cases where no server or a custom server is required.
+
 ## WsjtxUtils.WsjtxUdpServer
-[WsjtxUdpServer](src/WsjtxUtils.WsjtxUdpServer/WsjtxUdpServer.cs) is a lightweight, multicast-capable, asynchronous UDP server for WSJT-X clients. [IWsjtxUdpMessageHandler](src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) describes an interface that allows WsjtxUdpServer to handle all potential incoming messages from WSJT-X.  Create a class that implements [IWsjtxUdpMessageHandler](src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) and pass this class to the UDP server's constructor to begin processing messages asynchronously.
+[WsjtxUdpServer](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer/WsjtxUdpServer.cs) is a lightweight, multicast-capable, asynchronous UDP server for WSJT-X clients. [IWsjtxUdpMessageHandler](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) describes an interface that allows WsjtxUdpServer to handle all potential incoming messages from WSJT-X.  Create a class that implements [IWsjtxUdpMessageHandler](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) and pass this class to the UDP server's constructor to begin processing messages asynchronously.
 ```csharp
 IWsjtxUdpMessageHandler messageHandler = new SomeCustomMessageHandler();
 var cancellationTokenSource = new CancellationTokenSource();
@@ -47,7 +47,7 @@ while (!cancellationTokenSource.IsCancellationRequested) { }
 
 server.Stop();
 ```
-[WsjtxUdpServerBaseAsyncMessageHandler](src/WsjtxUtils.WsjtxUdpServer/WsjtxUdpServerBaseAsyncMessageHandler.cs) is an abstract class that implements [IWsjtxUdpMessageHandler](src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) and provides a basic set of capabilities. It tracks WSJT-X clients and, if available, the last state for each client that has communicated with the server during the previous timeout window, which defaults to 5 minutes. There are properties for connected clients and callbacks used to execute a target function based on specific events, newly connected WSJT-X clients, clients who send the close message, and clients who have not communicated with the server during the previous timeout window.
+[WsjtxUdpServerBaseAsyncMessageHandler](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer/WsjtxUdpServerBaseAsyncMessageHandler.cs) is an abstract class that implements [IWsjtxUdpMessageHandler](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) and provides a basic set of capabilities. It tracks WSJT-X clients and, if available, the last state for each client that has communicated with the server during the previous timeout window, which defaults to 5 minutes. There are properties for connected clients and callbacks used to execute a target function based on specific events, newly connected WSJT-X clients, clients who send the close message, and clients who have not communicated with the server during the previous timeout window.
 
 
 ## WsjtxUtils.WsjtxUdpServer.Example.WriteJsonToConsole

@@ -13,9 +13,8 @@
         /// <summary>
         /// Constructs a default WSJT-X FreeText message
         /// </summary>
-        public FreeText() : base(MessageType.FreeText)
+        public FreeText() : this(string.Empty, string.Empty)
         {
-            Text = string.Empty;
         }
 
         /// <summary>
@@ -24,9 +23,8 @@
         /// <param name="id"></param>
         /// <param name="text"></param>
         /// <param name="send"></param>
-        public FreeText(string id, string text, bool send = true) : base(MessageType.FreeText)
+        public FreeText(string id, string text, bool send = false) : base(id, MessageType.FreeText)
         {
-            Id = id;
             Text = text;
             Send = send;
         }

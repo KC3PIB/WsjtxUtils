@@ -13,7 +13,7 @@
         /// <summary>
         /// Constructs a default WSJT-X Status message
         /// </summary>
-        public Status() : base(MessageType.Status)
+        public Status() : base(string.Empty, MessageType.Status)
         {
             Mode = string.Empty;
             DXCall = string.Empty;

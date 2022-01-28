@@ -15,7 +15,7 @@ namespace WsjtxUtils.WsjtxMessages.Messages
         /// <summary>
         /// Constructs a default WSJT-X QsoLogged message
         /// </summary>
-        public QsoLogged() : base(MessageType.QSOLogged)
+        public QsoLogged() : base(string.Empty, MessageType.QSOLogged)
         {
             DXCall = string.Empty;
             DXGrid = string.Empty;
