@@ -51,14 +51,26 @@
         /// <summary>
         ///  Using the <see cref="WsjtxMessageReader"/>, deserialize the values to the current message
         /// </summary>
-        /// <param name="reader"></param>
-        public override void ReadMessage(WsjtxMessageReader reader)
+        /// <param name="messageReader"></param>
+        public override void ReadMessage(WsjtxMessageReader messageReader)
         {
-            base.ReadMessage(reader);
+            base.ReadMessage(messageReader);
 
-            MaximumSchemaNumber = reader.ReadSchemaVersion();
-            Version = reader.ReadString();
-            Revision = reader.ReadString();
+            // Note: the "Maximum schema number" field was introduced at the same time as
+            // schema 3, therefore servers and clients must assume schema 2 is the highest
+            // schema number supported if the Heartbeat message does not contain the
+            // "Maximum schema number" field.
+
+            if (messageReader.Position < messageReader.BufferLength)
+                MaximumSchemaNumber = messageReader.ReadSchemaVersion();
+            else
+                MaximumSchemaNumber = SchemaVersion.Version2;
+
+            if (messageReader.Position < messageReader.BufferLength)
+                Version = messageReader.ReadString();
+
+            if (messageReader.Position < messageReader.BufferLength)
+                Revision = messageReader.ReadString();
         }
         #endregion
 
@@ -66,14 +78,14 @@
         /// <summary>
         /// Using the <see cref="WsjtxMessageWriter"/>, serialize the message to raw bytes
         /// </summary>
-        /// <param name="writer"></param>
-        public override void WriteMessage(WsjtxMessageWriter writer)
+        /// <param name="messageWriter"></param>
+        public override void WriteMessage(WsjtxMessageWriter messageWriter)
         {
-            base.WriteMessage(writer);
+            base.WriteMessage(messageWriter);
 
-            writer.WriteEnum(MaximumSchemaNumber);
-            writer.WriteString(Version);
-            writer.WriteString(Revision);
+            messageWriter.WriteEnum(MaximumSchemaNumber);
+            messageWriter.WriteString(Version);
+            messageWriter.WriteString(Revision);
         }
         #endregion
     }
