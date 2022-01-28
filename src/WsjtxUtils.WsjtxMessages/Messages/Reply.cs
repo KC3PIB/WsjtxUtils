@@ -14,10 +14,8 @@
         /// <summary>
         /// Constructs a default WSJT-X Reply message
         /// </summary>
-        public Reply() : base(MessageType.Reply)
+        public Reply() : this(string.Empty, 0, 0, 0, 0, string.Empty, string.Empty, false, KeyboardModifiers.None)
         {
-            Mode = string.Empty;
-            Message = string.Empty;
         }
 
         /// <summary>

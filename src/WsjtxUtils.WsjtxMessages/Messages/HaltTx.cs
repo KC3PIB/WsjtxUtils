@@ -13,7 +13,7 @@
         /// <summary>
         /// Constructs a default WSJT-X HaltT message
         /// </summary>
-        public HaltTx() : base(MessageType.HaltTx)
+        public HaltTx() : this(string.Empty)
         {
         }
 
@@ -22,7 +22,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="autoTxOnly"></param>
-        public HaltTx(string id, bool autoTxOnly) : base(id, MessageType.HaltTx)
+        public HaltTx(string id, bool autoTxOnly = false) : base(id, MessageType.HaltTx)
         {
             AutoTxOnly = autoTxOnly;
         }

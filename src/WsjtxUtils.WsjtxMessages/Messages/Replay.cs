@@ -15,7 +15,7 @@
         /// <summary>
         /// Constructs a default WSJT-X Replay message
         /// </summary>
-        public Replay() : base(MessageType.Replay)
+        public Replay() : this(string.Empty)
         {
         }
 

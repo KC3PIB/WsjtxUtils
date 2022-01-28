@@ -11,7 +11,7 @@
         /// <summary>
         /// Constructs a default WSJT-X Close message
         /// </summary>
-        public Close() : base(MessageType.Close)
+        public Close() : this(string.Empty)
         {
         }
 

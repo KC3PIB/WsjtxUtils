@@ -16,7 +16,7 @@
         /// <summary>
         /// Constructs a default WSJT-X Configure message
         /// </summary>
-        public Configure() : base(MessageType.Configure)
+        public Configure() : this(string.Empty)
         {
         }
 
@@ -26,12 +26,19 @@
         /// <param name="id"></param>
         public Configure(string id) : base(id, MessageType.Configure)
         {
+            Mode = string.Empty;
+            FrequencyTolerance = uint.MaxValue;
+            SubMode = string.Empty;
+            TRPeriod = uint.MaxValue;
+            RxDF = uint.MaxValue;
+            DXCall = string.Empty;
+            DXGrid = string.Empty;
         }
 
         /// <summary>
         /// The selected WSJT-X mode
         /// </summary>
-        public string Mode { get; set; } = string.Empty;
+        public string Mode { get; set; }
 
         /// <summary>
         /// Frequency tolerance for mode
@@ -39,12 +46,12 @@
         /// <remarks>
         /// May have a value of <see cref="uint.MaxValue"/> which implies the field is not applicable
         /// </remarks>
-        public uint FrequencyTolerance { get; set; } = uint.MaxValue;
+        public uint FrequencyTolerance { get; set; }
 
         /// <summary>
         /// Which WSJT-X submode is in use
         /// </summary>
-        public string SubMode { get; set; } = string.Empty;
+        public string SubMode { get; set; }
 
         /// <summary>
         /// Is WSJT-X using a fast mode
@@ -61,7 +68,7 @@
         /// <remarks>
         /// May have a value of <see cref="uint.MaxValue"/> which implies the field is not applicable
         /// </remarks>
-        public uint TRPeriod { get; set; } = uint.MaxValue;
+        public uint TRPeriod { get; set; }
 
         /// <summary>
         /// RX frequency differential
@@ -69,17 +76,17 @@
         /// <remarks>
         /// May have a value of <see cref="uint.MaxValue"/> which implies the field is not applicable
         /// </remarks>
-        public uint RxDF { get; set; } = uint.MaxValue;
+        public uint RxDF { get; set; }
 
         /// <summary>
         /// Remote call sign
         /// </summary>
-        public string DXCall { get; set; } = string.Empty;
+        public string DXCall { get; set; }
 
         /// <summary>
         /// Remote grid square
         /// </summary>
-        public string DXGrid { get; set; } = string.Empty;
+        public string DXGrid { get; set; }
 
         /// <summary>
         /// Generate standard messages

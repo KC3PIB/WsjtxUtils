@@ -11,7 +11,7 @@
         /// <summary>
         /// Constructs a default WSJT-X Decode message
         /// </summary>
-        public Decode() : base(MessageType.Decode)
+        public Decode() : base(string.Empty, MessageType.Decode)
         {
             Mode = string.Empty;
             Message = string.Empty;

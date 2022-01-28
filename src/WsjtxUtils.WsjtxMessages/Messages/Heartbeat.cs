@@ -14,10 +14,8 @@
         /// <summary>
         /// Constructs a default WSJT-X Heartbeat message
         /// </summary>
-        public Heartbeat() : base(MessageType.Heartbeat)
+        public Heartbeat() : this(string.Empty, string.Empty, string.Empty)
         {
-            Version = string.Empty;
-            Revision = string.Empty;
         }
 
         /// <summary>

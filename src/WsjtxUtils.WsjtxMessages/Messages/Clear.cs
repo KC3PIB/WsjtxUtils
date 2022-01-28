@@ -15,7 +15,7 @@
         /// <summary>
         /// Constructs a default WSJT-X Clear message
         /// </summary>
-        public Clear() : base(MessageType.Clear)
+        public Clear() : this(string.Empty, ClearWindow.BandActivity)
         {
         }
 

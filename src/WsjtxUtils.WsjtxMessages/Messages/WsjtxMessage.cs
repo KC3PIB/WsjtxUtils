@@ -8,19 +8,13 @@
         /// <summary>
         /// Constructor for base WSJT-X message
         /// </summary>
-        /// <param name="messageType">The type of WSJT-X message</param>
-        protected WsjtxMessage(MessageType messageType) : this(string.Empty, messageType)
-        {
-        }
-
-        /// <summary>
-        /// Constructor for base WSJT-X message
-        /// </summary>
         /// <param name="id"></param>
         /// <param name="messageType"></param>
-        protected WsjtxMessage(string id, MessageType messageType)
+        /// <param name="schemaVersion"></param>
+        protected WsjtxMessage(string id, MessageType messageType, SchemaVersion schemaVersion = SchemaVersion.Version2)
         {
             MessageType = messageType;
+            SchemaVersion = schemaVersion;
             Id = id;
         }
 
@@ -38,7 +32,7 @@
         /// <remarks>
         /// http://doc.qt.io/qt-5/datastreamformat.html
         /// </remarks>
-        public SchemaVersion SchemaVersion { get; set; } = SchemaVersion.Version2;
+        public SchemaVersion SchemaVersion { get; set; }
 
         /// <summary>
         /// The type of WSJT-X message

@@ -12,9 +12,8 @@
         /// <summary>
         /// Constructs a default WSJT-X SwitchConfiguration message
         /// </summary>
-        public SwitchConfiguration() : base(MessageType.SwitchConfiguration)
+        public SwitchConfiguration() : this(string.Empty, string.Empty)
         {
-            ConfigurationName = string.Empty;
         }
 
         /// <summary>

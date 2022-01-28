@@ -33,7 +33,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
         [TestMethod()]
         public void WriteFreeTextMessageTo_RawBytes_ProducesValidOutput()
         {
-            FreeText message = new("WSJT-X", "TNX 73 GL");
+            FreeText message = new("WSJT-X", "TNX 73 GL", true);
 
             // Allocate memory and write the message
             var buffer = new byte[FreeTextMessage.Length];
