@@ -12,12 +12,19 @@
     <PackageProjectUrl>https://github.com/KC3PIB/WsjtxUtils</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KC3PIB/WsjtxUtils</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>ham;amateur;radio;WSJT-X;FT8;FT4;WSPR;JT65</PackageTags>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\LICENSE" Link="LICENSE">
+    <None Include="..\..\LICENSE" Link="LICENSE" Pack="true" PackagePath="\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md" Pack="true" PackagePath="\">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
