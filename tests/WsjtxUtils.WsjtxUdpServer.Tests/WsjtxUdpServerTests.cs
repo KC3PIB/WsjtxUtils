@@ -101,5 +101,39 @@ namespace WsjtxUtils.WsjtxUdpServer.Tests
             server.Stop();
             Assert.IsFalse(server.IsRunning);
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void WsjtxUdpServer_WithMockMessageHandler_ShouldThrowWhenSendMessageToCalledWithNoClientId()
+        {
+            // Arrange
+            var mockHandler = new Mock<IWsjtxUdpMessageHandler>();
+            mockHandler.Setup(handler => handler.HandleHeartbeatMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Heartbeat>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()));
+
+            var server = new WsjtxUdpServer(mockHandler.Object, IPAddress.Loopback, 2237);
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            // Act
+            server.Start(cancellationTokenSource);
+
+            server.SendMessageTo(new IPEndPoint(IPAddress.Loopback, 2237), new Heartbeat());
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public async Task WsjtxUdpServer_WithMockMessageHandler_ShouldThrowWhenSendMessageToAsyncCalledWithNoClientId()
+        {
+            // Arrange
+            var mockHandler = new Mock<IWsjtxUdpMessageHandler>();
+            mockHandler.Setup(handler => handler.HandleHeartbeatMessageAsync(It.IsAny<WsjtxUdpServer>(), It.IsAny<Heartbeat>(), It.IsAny<EndPoint>(), It.IsAny<CancellationToken>()));
+
+            var server = new WsjtxUdpServer(mockHandler.Object, IPAddress.Loopback, 2237);
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            // Act
+            server.Start(cancellationTokenSource);
+
+            await server.SendMessageToAsync(new IPEndPoint(IPAddress.Loopback, 2237), new Heartbeat());
+        }
     }
 }

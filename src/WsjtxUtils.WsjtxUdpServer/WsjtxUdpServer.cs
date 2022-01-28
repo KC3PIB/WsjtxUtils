@@ -148,6 +148,9 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <returns>The number of bytes sent</returns>
         public int SendMessageTo<T>(EndPoint remoteEndpoint, T message) where T : WsjtxMessage, IWsjtxDirectionIn
         {
+            if (string.IsNullOrEmpty(message.Id))
+                throw new ArgumentException(nameof(message), $"The client id can not be null or empty when sending {typeof(T).Name}.");
+
             var datagramBuffer = GC.AllocateArray<byte>(_datagramBufferSize, true);
             var bytesWritten = message.WriteMessageTo(datagramBuffer);
             return _socket.SendTo(datagramBuffer, bytesWritten, SocketFlags.None, remoteEndpoint);
@@ -163,6 +166,9 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <returns>The number of bytes sent</returns>
         public async ValueTask<int> SendMessageToAsync<T>(EndPoint remoteEndpoint, T message, CancellationToken cancellationToken = default) where T : WsjtxMessage, IWsjtxDirectionIn
         {
+            if (string.IsNullOrEmpty(message.Id))
+                throw new ArgumentException(nameof(message), $"The client id can not be null or empty when sending {typeof(T).Name}.");
+
             var datagramBuffer = GC.AllocateArray<byte>(_datagramBufferSize, true).AsMemory();
             var bytesWritten = message.WriteMessageTo(datagramBuffer);
             return await _socket.SendToAsync(datagramBuffer[..bytesWritten], SocketFlags.None, remoteEndpoint, cancellationToken);
