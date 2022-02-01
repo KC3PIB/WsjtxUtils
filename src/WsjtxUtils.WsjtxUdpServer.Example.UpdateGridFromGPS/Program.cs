@@ -3,7 +3,7 @@ using System.IO.Ports;
 using System.Net;
 using WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS;
 
-// parse command line options
+// parse command line for GPS serial port and server address and port
 string comPort = args.Length >= 1 ? args[0] : "COM3";
 int baudRate = args.Length >= 2 ? int.Parse(args[1]) : 9600;
 IPAddress address = args.Length >= 3 ? IPAddress.Parse(args[2]) : IPAddress.Loopback;
@@ -15,6 +15,8 @@ AutoGridFromGPS autoGrid = new AutoGridFromGPS(gps, address, port);
 
 // run autogrid
 await autoGrid.RunAsync(GenerateCancellationTokenSource());
+
+Console.WriteLine("Exiting...");
 
 
 /// <summary>

@@ -223,14 +223,14 @@ namespace WsjtxUtils.WsjtxUdpServer
                 // get the correct handler for the given message type
                 _ = message?.MessageType switch
                 {
-                    MessageType.Heartbeat => _messageHandler.HandleHeartbeatMessageAsync(this, (Heartbeat)message, result.RemoteEndPoint, cancellationToken),
-                    MessageType.Status => _messageHandler.HandleStatusMessageAsync(this, (Status)message, result.RemoteEndPoint, cancellationToken),
-                    MessageType.Decode => _messageHandler.HandleDecodeMessageAsync(this, (Decode)message, result.RemoteEndPoint, cancellationToken),
                     MessageType.Clear => _messageHandler.HandleClearMessageAsync(this, (Clear)message, result.RemoteEndPoint, cancellationToken),
-                    MessageType.QSOLogged => _messageHandler.HandleQsoLoggedMessageAsync(this, (QsoLogged)message, result.RemoteEndPoint, cancellationToken),
                     MessageType.Close => _messageHandler.HandleClosedMessageAsync(this, (Close)message, result.RemoteEndPoint, cancellationToken),
-                    MessageType.WSPRDecode => _messageHandler.HandleWSPRDecodeMessageAsync(this, (WSPRDecode)message, result.RemoteEndPoint, cancellationToken),
+                    MessageType.Decode => _messageHandler.HandleDecodeMessageAsync(this, (Decode)message, result.RemoteEndPoint, cancellationToken),
+                    MessageType.Heartbeat => _messageHandler.HandleHeartbeatMessageAsync(this, (Heartbeat)message, result.RemoteEndPoint, cancellationToken),
                     MessageType.LoggedADIF => _messageHandler.HandleLoggedAdifMessageAsync(this, (LoggedAdif)message, result.RemoteEndPoint, cancellationToken),
+                    MessageType.QSOLogged => _messageHandler.HandleQsoLoggedMessageAsync(this, (QsoLogged)message, result.RemoteEndPoint, cancellationToken),
+                    MessageType.Status => _messageHandler.HandleStatusMessageAsync(this, (Status)message, result.RemoteEndPoint, cancellationToken),
+                    MessageType.WSPRDecode => _messageHandler.HandleWSPRDecodeMessageAsync(this, (WSPRDecode)message, result.RemoteEndPoint, cancellationToken),
                     _ => null // no handler for unsupported messages
                 };
             }

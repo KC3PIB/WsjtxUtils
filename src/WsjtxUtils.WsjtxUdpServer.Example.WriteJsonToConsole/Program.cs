@@ -6,13 +6,13 @@ using WsjtxUtils.WsjtxUdpServer.Example.WriteJsonToConsole;
 IPAddress address = args.Length >= 1 ? IPAddress.Parse(args[0]) : IPAddress.Loopback;
 int port = args.Length >= 2 ? int.Parse(args[1]) : 2237;
 
-// create token source setup the message handler and
+// create token source and setup the message handler
 CancellationTokenSource cancellationTokenSource = GenerateCancellationTokenSource();
 IWsjtxUdpMessageHandler messageHandler = new WriteMessageToConsoleAsJsonHandler();
 
 // setup and start the WSJT-X UDP server
 using var server = new WsjtxUdpServer(messageHandler, address, port);
-Console.WriteLine($"Starting UDP server: {server.LocalEndpoint.Address}:{server.LocalEndpoint.Port} IsMulticast:{server.IsMulticast}");
+Console.WriteLine($"Starting UDP server: {server.LocalEndpoint.Address}:{server.LocalEndpoint.Port} IsMulticast:{server.IsMulticast} {(server.IsMulticast ? address : string.Empty)}");
 server.Start(cancellationTokenSource);
 
 // do stuff while the server is running

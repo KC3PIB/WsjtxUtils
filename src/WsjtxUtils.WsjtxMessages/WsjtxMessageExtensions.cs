@@ -12,6 +12,7 @@ namespace WsjtxUtils.WsjtxMessages
         /// Create a default message for the given WSJT-X message type
         /// </summary>
         /// <param name="messageType">The type of WSJT-X message</param>
+        /// <exception cref="ArgumentException">Exception thrown if the <see cref="MessageType"/> is an unknown message type</exception>
         /// <returns>A default WSJT-X message</returns>
         public static WsjtxMessage? CreateDefaultMessage(this MessageType messageType)
         {
@@ -29,19 +30,20 @@ namespace WsjtxUtils.WsjtxMessages
                 MessageType.LoggedADIF => typeof(LoggedAdif),
                 MessageType.QSOLogged => typeof(QsoLogged),
                 MessageType.Replay => typeof(Replay),
+                MessageType.Reply => typeof(Reply),
                 MessageType.Status => typeof(Status),
                 MessageType.SwitchConfiguration => typeof(SwitchConfiguration),
                 MessageType.WSPRDecode => typeof(WSPRDecode),
-                MessageType.Reply => typeof(Reply),
-                _ => throw new ArgumentException($"The type {messageType} is not a valid MessageType."),
+                _ => throw new ArgumentException($"The type {messageType} is an unknown WSJT-X message type."),
             };
             return Activator.CreateInstance(type) as WsjtxMessage;
         }
 
         /// <summary>
-        /// Create a WSJT-X message from target memory
+        /// Create a WSJT-X message from the source memory
         /// </summary>
         /// <param name="source">Source memory</param>
+        /// <exception cref="NotImplementedException">Exception thrown if the message type does not implement <see cref="IWsjtxDirectionOut"/></exception>
         /// <returns>A WSJT-X message</returns>
         public static WsjtxMessage? DeserializeWsjtxMessage(this Memory<byte> source)
         {

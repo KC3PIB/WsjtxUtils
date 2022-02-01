@@ -20,10 +20,24 @@ namespace WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS
         /// </summary>
         private const int LowercaseAlphaCharCodeStart = 97;
 
+        /// <summary>
+        /// NMEA GPS device
+        /// </summary>
         private readonly NmeaDevice _gps;
+
+        /// <summary>
+        /// WSJT-X UDP server
+        /// </summary>
         private readonly WsjtxUdpServer _server;
 
+        /// <summary>
+        /// The currently reported gridsquare
+        /// </summary>
         private string? _currentGridsquare;
+
+        /// <summary>
+        /// The last reported gridsquare
+        /// </summary>
         private string? _lastGridsquare;
 
         /// <summary>
@@ -48,6 +62,7 @@ namespace WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS
         public async Task RunAsync(CancellationTokenSource cancellationTokenSource)
         {
             // start the GPS device and WSJT-X server
+            Console.WriteLine("Opening GPS device and starting WSJT-X server");
             await _gps.OpenAsync();
             _server.Start();
 
@@ -59,6 +74,7 @@ namespace WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS
                     // and send the updated location if the client requires
                     if (_currentGridsquare != _lastGridsquare)
                     {
+                        Console.WriteLine($"Updating location from {_lastGridsquare} to {_currentGridsquare}");
                         _lastGridsquare = _currentGridsquare;
                         foreach (var client in ConnectedClients)
                             await CheckStateAndSendLocationIfRequiredAsync(client.Value, cancellationTokenSource.Token);
@@ -68,6 +84,7 @@ namespace WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS
             }
             finally
             {
+                Console.WriteLine("Stopping WSJT-X server and closing GPS device");
                 _server.Stop();
                 await _gps.CloseAsync();
             }
@@ -81,7 +98,10 @@ namespace WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS
         private async Task CheckStateAndSendLocationIfRequiredAsync(WsjtxConnectedClient client, CancellationToken cancellationToken = default)
         {
             if (_currentGridsquare != null && (client.Status == null || client.Status.DEGrid != _currentGridsquare))
+            {
+                Console.WriteLine($"Sending location packet to {client.ClientId} {client.Endpoint} with grid {_currentGridsquare}");
                 await _server.SendMessageToAsync(client.Endpoint, new Location(client.ClientId, _currentGridsquare), cancellationToken);
+            }   
         }
 
         /// <summary>

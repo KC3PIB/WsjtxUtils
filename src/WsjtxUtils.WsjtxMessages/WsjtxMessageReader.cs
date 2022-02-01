@@ -93,7 +93,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read an Int32 from the buffer
         /// </summary>
-        /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
         public int ReadInt32()
         {
@@ -105,7 +104,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read an Int32 from the buffer
         /// </summary>
-        /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
         public uint ReadUInt32()
         {
@@ -117,7 +115,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read an Int64 from the buffer
         /// </summary>
-        /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
         public long ReadInt64()
         {
@@ -129,7 +126,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read an Int64 from the buffer
         /// </summary>
-        /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
         public ulong ReadUInt64()
         {
@@ -150,6 +146,8 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read a string from the buffer
         /// </summary>
+        /// <remarks>For simplicity, this method will return <see cref="String.Empty"/> for null values</remarks>
+        /// <exception cref="InsufficientMemoryException">Exception thrown if the string size exceeds the allocated buffer</exception>
         /// <returns></returns>
         public string ReadString()
         {
@@ -198,6 +196,7 @@ namespace WsjtxUtils.WsjtxMessages
         /// Read the bytes from the backing stream and convert into the enum of type T
         /// </summary>
         /// <typeparam name="T">Type of enumeration</typeparam>
+        /// <exception cref="NotImplementedException">Exception thrown if the underlying type is not implemented</exception>
         /// <returns></returns>
         public T ReadEnum<T>() where T : Enum
         {
@@ -229,6 +228,7 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read a QT Date time value
         /// </summary>
+        /// <exception cref="NotImplementedException">Exception thrown if the <see cref="Timespec"/> is <see cref="Timespec.TimeZone"/> or unknown</exception>
         /// <returns></returns>
         public DateTime ReadQDateTime()
         {
