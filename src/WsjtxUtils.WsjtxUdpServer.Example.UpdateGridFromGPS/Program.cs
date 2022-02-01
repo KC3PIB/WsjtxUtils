@@ -16,6 +16,8 @@ AutoGridFromGPS autoGrid = new AutoGridFromGPS(gps, address, port);
 // run autogrid
 await autoGrid.RunAsync(GenerateCancellationTokenSource());
 
+Console.WriteLine("Exiting...");
+
 
 /// <summary>
 /// Creates a <see cref="CancellationTokenSource"/> which will signal
