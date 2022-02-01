@@ -13,7 +13,7 @@ namespace WsjtxUtils.WsjtxMessages
         private int _position;
 
         /// <summary>
-        /// Continuous memory buffer
+        /// Continuous memory region
         /// </summary>
         protected Memory<byte> buffer;
 
@@ -39,6 +39,7 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Set the index into the underlying array
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Exception thrown if the position is out of range given the buffer size</exception>
         /// <param name="position"></param>
         private void SetPostion(int position)
         {
