@@ -39,7 +39,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Create a WSJT-X message from target memory
+        /// Create a WSJT-X message from the source memory
         /// </summary>
         /// <param name="source">Source memory</param>
         /// <returns>A WSJT-X message</returns>

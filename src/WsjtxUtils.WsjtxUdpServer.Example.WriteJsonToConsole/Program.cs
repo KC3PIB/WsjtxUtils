@@ -6,7 +6,7 @@ using WsjtxUtils.WsjtxUdpServer.Example.WriteJsonToConsole;
 IPAddress address = args.Length >= 1 ? IPAddress.Parse(args[0]) : IPAddress.Loopback;
 int port = args.Length >= 2 ? int.Parse(args[1]) : 2237;
 
-// create token source setup the message handler and
+// create token source and setup the message handler
 CancellationTokenSource cancellationTokenSource = GenerateCancellationTokenSource();
 IWsjtxUdpMessageHandler messageHandler = new WriteMessageToConsoleAsJsonHandler();
 

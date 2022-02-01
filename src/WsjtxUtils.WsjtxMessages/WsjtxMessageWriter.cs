@@ -20,7 +20,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write a single byte value
+        /// Write a single byte value to the buffer
         /// </summary>
         /// <returns></returns>
         public void WriteByte(byte value)
@@ -29,7 +29,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write a boolean value
+        /// Write a boolean value to the buffer
         /// </summary>
         /// <param name="value"></param>
         public void WriteBool(bool value)
@@ -128,7 +128,7 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
-        /// Write a <see cref="System.Drawing.Color" /> as a QColor data stream
+        /// Write a <see cref="QColor" /> to the buffer
         /// </summary>
         /// <param name="color"></param>
         public void WriteColor(QColor color)

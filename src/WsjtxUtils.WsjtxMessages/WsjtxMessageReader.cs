@@ -93,7 +93,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read an Int32 from the buffer
         /// </summary>
-        /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
         public int ReadInt32()
         {
@@ -105,7 +104,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read an Int32 from the buffer
         /// </summary>
-        /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
         public uint ReadUInt32()
         {
@@ -117,7 +115,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read an Int64 from the buffer
         /// </summary>
-        /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
         public long ReadInt64()
         {
@@ -129,7 +126,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read an Int64 from the buffer
         /// </summary>
-        /// <remarks>Data is expected to be in big endian format</remarks>
         /// <returns></returns>
         public ulong ReadUInt64()
         {
@@ -150,6 +146,7 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read a string from the buffer
         /// </summary>
+        /// <remarks>For simplicity, this method will return <see cref="String.Empty"/> for null values</remarks>
         /// <returns></returns>
         public string ReadString()
         {
