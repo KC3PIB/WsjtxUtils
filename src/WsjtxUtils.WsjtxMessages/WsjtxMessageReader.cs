@@ -227,6 +227,7 @@ namespace WsjtxUtils.WsjtxMessages
         /// <summary>
         /// Read a QT Date time value
         /// </summary>
+        /// <exception cref="NotImplementedException">Exception thrown if the <see cref="Timespec"/> is <see cref="Timespec.TimeZone"/> or unknown</exception>
         /// <returns></returns>
         public DateTime ReadQDateTime()
         {
