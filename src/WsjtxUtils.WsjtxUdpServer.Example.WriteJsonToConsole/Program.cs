@@ -12,7 +12,7 @@ IWsjtxUdpMessageHandler messageHandler = new WriteMessageToConsoleAsJsonHandler(
 
 // setup and start the WSJT-X UDP server
 using var server = new WsjtxUdpServer(messageHandler, address, port);
-Console.WriteLine($"Starting UDP server: {server.LocalEndpoint.Address}:{server.LocalEndpoint.Port} IsMulticast:{server.IsMulticast}");
+Console.WriteLine($"Starting UDP server: {server.LocalEndpoint.Address}:{server.LocalEndpoint.Port} IsMulticast:{server.IsMulticast} {(server.IsMulticast ? address : string.Empty)}");
 server.Start(cancellationTokenSource);
 
 // do stuff while the server is running
