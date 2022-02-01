@@ -147,6 +147,7 @@ namespace WsjtxUtils.WsjtxMessages
         /// Read a string from the buffer
         /// </summary>
         /// <remarks>For simplicity, this method will return <see cref="String.Empty"/> for null values</remarks>
+        /// <exception cref="InsufficientMemoryException">Exception thrown if the string size exceeds the allocated buffer</exception>
         /// <returns></returns>
         public string ReadString()
         {
