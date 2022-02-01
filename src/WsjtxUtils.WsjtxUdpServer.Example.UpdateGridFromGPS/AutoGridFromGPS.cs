@@ -20,10 +20,24 @@ namespace WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS
         /// </summary>
         private const int LowercaseAlphaCharCodeStart = 97;
 
+        /// <summary>
+        /// NMEA GPS device
+        /// </summary>
         private readonly NmeaDevice _gps;
+
+        /// <summary>
+        /// WSJT-X UDP server
+        /// </summary>
         private readonly WsjtxUdpServer _server;
 
+        /// <summary>
+        /// The currently reported gridsquare
+        /// </summary>
         private string? _currentGridsquare;
+
+        /// <summary>
+        /// The last reported gridsquare
+        /// </summary>
         private string? _lastGridsquare;
 
         /// <summary>
