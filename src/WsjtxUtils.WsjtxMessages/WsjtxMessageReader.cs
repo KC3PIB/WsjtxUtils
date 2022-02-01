@@ -196,6 +196,7 @@ namespace WsjtxUtils.WsjtxMessages
         /// Read the bytes from the backing stream and convert into the enum of type T
         /// </summary>
         /// <typeparam name="T">Type of enumeration</typeparam>
+        /// <exception cref="NotImplementedException">Exception thrown if the underlying type is not implemented</exception>
         /// <returns></returns>
         public T ReadEnum<T>() where T : Enum
         {
