@@ -60,16 +60,13 @@
             // schema 3, therefore servers and clients must assume schema 2 is the highest
             // schema number supported if the Heartbeat message does not contain the
             // "Maximum schema number" field.
+            MaximumSchemaNumber = messageReader.IsDataAvailable()
+                ? messageReader.ReadSchemaVersion() : SchemaVersion.Version2;
 
-            if (messageReader.Position < messageReader.BufferLength)
-                MaximumSchemaNumber = messageReader.ReadSchemaVersion();
-            else
-                MaximumSchemaNumber = SchemaVersion.Version2;
-
-            if (messageReader.Position < messageReader.BufferLength)
+            if (messageReader.IsDataAvailable())
                 Version = messageReader.ReadString();
 
-            if (messageReader.Position < messageReader.BufferLength)
+            if (messageReader.IsDataAvailable())
                 Revision = messageReader.ReadString();
         }
         #endregion

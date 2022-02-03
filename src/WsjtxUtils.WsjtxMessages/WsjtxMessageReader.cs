@@ -35,6 +35,15 @@ namespace WsjtxUtils.WsjtxMessages
         }
 
         /// <summary>
+        /// Is message data still available in the buffer
+        /// </summary>
+        /// <returns></returns>
+        public bool IsDataAvailable()
+        {
+            return Position < BufferLength;
+        }
+
+        /// <summary>
         /// Peek at the message type keeping original position
         /// </summary>
         /// <returns></returns>
