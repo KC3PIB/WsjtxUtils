@@ -144,7 +144,7 @@ namespace WsjtxUtils.WsjtxMessages.Messages
             ExchangeSent = messageReader.ReadString();
             ExchangeReceived = messageReader.ReadString();
 
-            if (messageReader.Position < messageReader.BufferLength)
+            if (messageReader.IsDataAvailable())
                 AdifPropagationMode = messageReader.ReadString();
         }
         #endregion
