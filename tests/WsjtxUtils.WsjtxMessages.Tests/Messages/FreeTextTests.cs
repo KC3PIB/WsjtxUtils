@@ -48,15 +48,17 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
         [ExpectedException(typeof(ArgumentException))]
         public void FreeTextMessage_ThrowsException_WhenConstructedWithStringThatExceedsLimits()
         {
-            FreeText message = new FreeText("WSJT-X", "1234567890ABCD");
+            _ = new FreeText("WSJT-X", "1234567890ABCD");
         }
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
         public void FreeTextMessage_ThrowsException_WhenSettingPropWithStringThatExceedsLimits()
         {
-            FreeText message = new FreeText();
-            message.Text = "1234567890ABCD";
+            _ = new FreeText
+            {
+                Text = "1234567890ABCD"
+            };
         }
     }
 }
