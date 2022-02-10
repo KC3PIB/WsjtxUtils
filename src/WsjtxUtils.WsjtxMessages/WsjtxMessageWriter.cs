@@ -17,6 +17,8 @@ namespace WsjtxUtils.WsjtxMessages
         /// <param name="source"></param>
         public WsjtxMessageWriter(Memory<byte> source) : base(source)
         {
+            if (source.Length < WsjtxConstants.HeaderLengthInBytes)
+                throw new ArgumentException($"Expecting greater than {WsjtxConstants.HeaderLengthInBytes} bytes for space to fit a valid message, {buffer.Length} found. Recommended size is 1500 bytes.");
         }
 
         /// <summary>
