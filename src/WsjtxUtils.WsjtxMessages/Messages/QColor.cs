@@ -39,26 +39,14 @@ namespace WsjtxUtils.WsjtxMessages.Messages
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
-        public QColor(int red, int green, int blue, int alpha = 255)
+        public QColor(byte red, byte green, byte blue, byte alpha = 255)
         {
-            if (red < 0 || red > 255)
-                throw new ArgumentException($"Red value must be less than or equal to 255 and greater than 0, currently {red}");
-
-            if (green < 0 || green > 255)
-                throw new ArgumentException($"Green value must be less than or equal to 255 and greater than 0, currently {green}");
-
-            if (blue < 0 || blue > 255)
-                throw new ArgumentException($"Blue value must be less than or equal to 255 and greater than 0, currently {blue}");
-
-            if (alpha < 0 || alpha > 255)
-                throw new ArgumentException($"Alpha value must be less than or equal to 255, currently {alpha}");
-
             // https://github.com/radekp/qt/blob/master/src/gui/painting/qcolor.cpp
             Red = (ushort)(red << 8);
             Green = (ushort)(green << 8);
             Blue = (ushort)(blue << 8);
             Alpha = (ushort)(alpha << 8);
-            Spec = QColorSpec.ExtendedRgb;
+            Spec = QColorSpec.Rgb;
         }
 
         /// <summary>
