@@ -76,8 +76,8 @@ namespace WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS
                     {
                         Console.WriteLine($"Updating location from {_lastGridsquare} to {_currentGridsquare}");
                         _lastGridsquare = _currentGridsquare;
-                        foreach (var client in ConnectedClients)
-                            await CheckStateAndSendLocationIfRequiredAsync(client.Value, cancellationTokenSource.Token);
+                        foreach (var client in ConnectedClients.Values)
+                            await CheckStateAndSendLocationIfRequiredAsync(client, cancellationTokenSource.Token);
                     }
                     await Task.Delay(1000, cancellationTokenSource.Token);
                 }
