@@ -91,5 +91,18 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
             Assert.AreEqual(0, color.Alpha);
             Assert.AreEqual(0, color.Pad);
         }
+
+        [TestMethod()]
+        public void CreateQColor_WithColorEmpty_ProducesInvalidColorspec()
+        {
+            QColor color = new QColor(Color.Empty);
+
+            Assert.AreEqual(QColorSpec.Invalid, color.Spec);
+            Assert.AreEqual(0, color.Red);
+            Assert.AreEqual(0, color.Green);
+            Assert.AreEqual(0, color.Blue);
+            Assert.AreEqual(0, color.Alpha);
+            Assert.AreEqual(0, color.Pad);
+        }
     }
 }
