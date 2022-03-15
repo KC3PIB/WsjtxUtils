@@ -11,9 +11,8 @@ namespace WsjtxUtils.WsjtxMessages.Messages
         /// <summary>
         /// Constructs a default QColor object
         /// </summary>
-        public QColor()
+        public QColor() : this(Color.Empty)
         {
-            Spec = QColorSpec.Invalid;
         }
 
         /// <summary>
@@ -28,25 +27,21 @@ namespace WsjtxUtils.WsjtxMessages.Messages
         /// Constructs a QColor object based on input color
         /// </summary>
         /// <param name="color"></param>
-        public QColor(Color color) : this(color.R, color.G, color.B, color.A)
+        public QColor(Color color)
         {
-        }
-
-        /// <summary>
-        /// Constructs a QColor object based on input color values
-        /// </summary>
-        /// <param name="red"></param>
-        /// <param name="green"></param>
-        /// <param name="blue"></param>
-        /// <param name="alpha"></param>
-        public QColor(byte red, byte green, byte blue, byte alpha = 255)
-        {
-            // https://github.com/radekp/qt/blob/master/src/gui/painting/qcolor.cpp
-            Red = (ushort)(red << 8);
-            Green = (ushort)(green << 8);
-            Blue = (ushort)(blue << 8);
-            Alpha = (ushort)(alpha << 8);
-            Spec = QColorSpec.Rgb;
+            if (!color.IsEmpty)
+            {
+                // https://github.com/radekp/qt/blob/master/src/gui/painting/qcolor.cpp
+                Red = (ushort)(color.R << 8);
+                Green = (ushort)(color.G << 8);
+                Blue = (ushort)(color.B << 8);
+                Alpha = (ushort)(color.A << 8);
+                Spec = QColorSpec.Rgb;
+            }
+            else
+            {
+                Spec = QColorSpec.Invalid;
+            }
         }
 
         /// <summary>
