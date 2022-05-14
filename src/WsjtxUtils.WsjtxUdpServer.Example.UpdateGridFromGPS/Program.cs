@@ -11,7 +11,7 @@ int port = args.Length >= 4 ? int.Parse(args[3]) : 2237;
 
 // setup the GPS device and the AutoGrid server
 var gps = new SerialPortDevice(new SerialPort(comPort, baudRate));
-AutoGridFromGPS autoGrid = new AutoGridFromGPS(gps, address, port);
+var autoGrid = new AutoGridFromGPS(gps, address, port);
 
 // run autogrid
 await autoGrid.RunAsync(GenerateCancellationTokenSource());
