@@ -10,7 +10,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
     public class WsjtxQsoParser77BitModesTests
     {
         [TestMethod()]
-        public void WsjtxQsoParser_ParsesFTModeCorrectly_WhenNAVHFContest()
+        public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenNAVHFContest()
         {
             var decode = new Decode()
             {
@@ -20,6 +20,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             };
 
             var qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.DXCallsign);
@@ -60,7 +61,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         }
 
         [TestMethod()]
-        public void WsjtxQsoParser_ParsesFTModeCorrectly_WhenEUVHFContest()
+        public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenEUVHFContest()
         {
             var decode = new Decode()
             {
@@ -70,6 +71,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             };
 
             var qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("TEST", qso.CallingModifier);
@@ -113,7 +115,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         }
 
         [TestMethod()]
-        public void WsjtxQsoParser_ParsesFTModeCorrectly_WhenWWDigiContest()
+        public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenWWDigiContest()
         {
             var decode = new Decode()
             {
@@ -123,6 +125,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             };
 
             var qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("WW", qso.CallingModifier);
@@ -156,7 +159,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         }
 
         [TestMethod()]
-        public void WsjtxQsoParser_ParsesFTModeCorrectly_WhenARRLFieldDay()
+        public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenARRLFieldDay()
         {
             var decode = new Decode()
             {
@@ -166,6 +169,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             };
 
             var qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual("FD", qso.CallingModifier);
@@ -200,7 +204,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         }
 
         [TestMethod()]
-        public void WsjtxQsoParser_ParsesFTModeCorrectly_WhenNonstandardCallsign()
+        public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenNonstandardCallsign()
         {
             var decode = new Decode()
             {
@@ -210,6 +214,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             };
 
             var qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -264,7 +269,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         }
 
         [TestMethod()]
-        public void WsjtxQsoParser_ParsesFTModeCorrectly_WhenUsingFTCodeOutput()
+        public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenUsingFTCodeOutput()
         {
             #region Free Text
             var decode = new Decode()
@@ -275,6 +280,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             };
 
             var qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.Unknown, qso.QsoState);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
