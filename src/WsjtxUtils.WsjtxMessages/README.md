@@ -16,12 +16,12 @@ var numberOfBytesWritten = message.WriteMessageTo(buffer);
 
 [WsjtxQsoParser](QsoParsing/WsjtxQsoParser.cs) is a utility class attempting to extract as much relevant QSO information from 77-bit modes (FST4, FT4, FT8, MSK144, Q65) WSJT-X [Decode](Messages/Decode.cs) messages. The returned [WsjtxQso](QsoParsing/WsjtxQso.cs) will have the state of the QSO in progress and callsigns, grid square, and report if available.
 ```csharp
- var qso = WsjtxQsoParser.ParseDecode(decode);
+var qso = WsjtxQsoParser.ParseDecode(status.Mode, decode);
  
- var dxCallsign = qso.DXCallsign;
- var deCallsign = qso.DECallsign;
- var grid = qso.GridSquare;
- var report = qso.Report;
+var dxCallsign = qso.DXCallsign;
+var deCallsign = qso.DECallsign;
+var grid = qso.GridSquare;
+var report = qso.Report;
 ```
 
 WsjtxMessages does not contain a server implementation to allow flexibility and use cases where no server or a custom server is required. A basic UDP server using [WsjtxUtils.WsjtxMessages](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxMessages) is available with [WsjtxUtils.WsjtxUdpServer](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer).

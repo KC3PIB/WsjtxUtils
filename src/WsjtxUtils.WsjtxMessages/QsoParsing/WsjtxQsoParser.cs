@@ -12,10 +12,11 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// Attempt to parse as much information as possible about the OSO of a WSJT-X decode packet
         /// </summary>
         /// <param name="decode"></param>
+        /// <param name="mode"></param>
         /// <returns></returns>
-        public static WsjtxQso ParseDecode(Decode decode)
+        public static WsjtxQso ParseDecode(string mode, Decode decode)
         {
-            switch (decode.Mode)
+            switch (mode)
             {
                 case "FST4":
                 case "FT4":
@@ -26,6 +27,17 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
                 default:
                     throw new NotImplementedException($"A QSO parser for {decode.Mode} is not implemented");
             }
+        }
+
+        /// <summary>
+        /// Attempt to parse as much information as possible about the OSO of a WSJT-X decode packet
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="decode"></param>
+        /// <returns></returns>
+        public static WsjtxQso ParseDecode(Status status, Decode decode)
+        {
+            return ParseDecode(status.Mode, decode);
         }
     }
 }

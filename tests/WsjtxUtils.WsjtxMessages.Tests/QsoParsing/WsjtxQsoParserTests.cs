@@ -16,11 +16,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             var decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FT8",
                 Message = "CQ K1ABC FN42",
             };
 
-            var qso = WsjtxQsoParser.ParseDecode(decode);
+            var qso = WsjtxQsoParser.ParseDecode("FT8", decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DECallsign);
@@ -29,11 +28,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FST4",
                 Message = "CQ K1ABC FN42",
             };
 
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode("FST4", decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DECallsign);
@@ -42,11 +40,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FT4",
                 Message = "CQ K1ABC FN42",
             };
 
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode("FT4", decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DECallsign);
@@ -55,11 +52,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "MSK144",
                 Message = "CQ K1ABC FN42",
             };
 
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode("MSK144", decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DECallsign);
@@ -68,11 +64,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "Q65",
                 Message = "CQ K1ABC FN42",
             };
 
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode("Q65", decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DECallsign);
@@ -86,11 +81,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             var decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "CCC",
                 Message = "CQ K1ABC FN42",
             };
 
-            var qso = WsjtxQsoParser.ParseDecode(decode);
+            var qso = WsjtxQsoParser.ParseDecode("CCC", decode);
         }
     }
 }

@@ -12,14 +12,19 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         [TestMethod()]
         public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenNAVHFContest()
         {
+            var status = new Status()
+            {
+                Mode = "FT8"
+            };
+
             var decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FT8",
+                Mode = "~",
                 Message = "CQ TEST K1ABC FN42",
             };
 
-            var qso = WsjtxQsoParser.ParseDecode(decode);
+            var qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
@@ -28,7 +33,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "K1ABC W9XYZ EN37";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DXCallsign);
@@ -36,7 +41,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("EN37", qso.GridSquare);
 
             decode.Message = "W9XYZ K1ABC R FN42";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual("W9XYZ", qso.DXCallsign);
@@ -44,7 +49,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "K1ABC W9XYZ RRR";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DXCallsign);
@@ -52,7 +57,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "W9XYZ K1ABC 73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Signoff, qso.QsoState);
             Assert.AreEqual("W9XYZ", qso.DXCallsign);
@@ -63,6 +68,11 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         [TestMethod()]
         public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenEUVHFContest()
         {
+            var status = new Status()
+            {
+                Mode = "FT8"
+            };
+
             var decode = new Decode()
             {
                 Id = "WSJT-X",
@@ -70,7 +80,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
                 Message = "CQ TEST G4ABC IO91"
             };
 
-            var qso = WsjtxQsoParser.ParseDecode(decode);
+            var qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
@@ -80,7 +90,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("IO91", qso.GridSquare);
 
             decode.Message = "G4ABC PA9XYZ JO22";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual("G4ABC", qso.DXCallsign);
@@ -88,7 +98,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("JO22", qso.GridSquare);
 
             decode.Message = "<PA9XYZ> <G4ABC> 570123 IO91NP";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual("PA9XYZ", qso.DXCallsign);
@@ -97,7 +107,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("IO91NP", qso.GridSquare);
 
             decode.Message = "<G4ABC> <PA9XYZ> R 580071 JO22DB";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual("G4ABC", qso.DXCallsign);
@@ -106,7 +116,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("JO22DB", qso.GridSquare);
 
             decode.Message = "PA9XYZ G4ABC RR73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual("PA9XYZ", qso.DXCallsign);
@@ -117,6 +127,11 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         [TestMethod()]
         public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenWWDigiContest()
         {
+            var status = new Status()
+            {
+                Mode = "FT8"
+            };
+
             var decode = new Decode()
             {
                 Id = "WSJT-X",
@@ -124,7 +139,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
                 Message = "CQ WW K1ABC FN42"
             };
 
-            var qso = WsjtxQsoParser.ParseDecode(decode);
+            var qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
@@ -134,7 +149,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "K1ABC S52XYZ JN76";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DXCallsign);
@@ -142,7 +157,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("JN76", qso.GridSquare);
 
             decode.Message = "S52XYZ K1ABC R FN42";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual("S52XYZ", qso.DXCallsign);
@@ -150,7 +165,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "K1ABC S52XYZ RR73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DXCallsign);
@@ -161,6 +176,11 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         [TestMethod()]
         public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenARRLFieldDay()
         {
+            var status = new Status()
+            {
+                Mode = "FT8"
+            };
+
             var decode = new Decode()
             {
                 Id = "WSJT-X",
@@ -168,7 +188,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
                 Message = "CQ FD K1ABC FN42"
             };
 
-            var qso = WsjtxQsoParser.ParseDecode(decode);
+            var qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.IsTrue(qso.IsCallingCQ);
@@ -178,7 +198,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "K1ABC W9XYZ 6A WI";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DXCallsign);
@@ -187,7 +207,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "W9XYZ K1ABC R 2B EMA";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual("W9XYZ", qso.DXCallsign);
@@ -195,7 +215,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "K1ABC W9XYZ RR73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual("K1ABC", qso.DXCallsign);
@@ -206,6 +226,11 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         [TestMethod()]
         public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenNonstandardCallsign()
         {
+            var status = new Status()
+            {
+                Mode = "FT8"
+            };
+
             var decode = new Decode()
             {
                 Id = "WSJT-X",
@@ -213,7 +238,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
                 Message = "CQ PJ4/K1ABC"
             };
 
-            var qso = WsjtxQsoParser.ParseDecode(decode);
+            var qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.IsTrue(qso.IsCallingCQ);
@@ -223,7 +248,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<PJ4/K1ABC> W9XYZ";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual("PJ4/K1ABC", qso.DXCallsign);
@@ -232,7 +257,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "W9XYZ <PJ4/K1ABC> +03";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual("W9XYZ", qso.DXCallsign);
@@ -241,7 +266,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<PJ4/K1ABC> W9XYZ R-08";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual("PJ4/K1ABC", qso.DXCallsign);
@@ -250,7 +275,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<W9XYZ> PJ4/K1ABC RRR";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual("W9XYZ", qso.DXCallsign);
@@ -259,7 +284,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "PJ4/K1ABC <W9XYZ> 73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Signoff, qso.QsoState);
             Assert.AreEqual("PJ4/K1ABC", qso.DXCallsign);
@@ -271,6 +296,11 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
         [TestMethod()]
         public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenUsingFTCodeOutput()
         {
+            var status = new Status()
+            {
+                Mode = "FT8"
+            };
+
             #region Free Text
             var decode = new Decode()
             {
@@ -279,7 +309,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
                 Message = "TNX BOB 73 GL"
             };
 
-            var qso = WsjtxQsoParser.ParseDecode(decode);
+            var qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.Unknown, qso.QsoState);
             Assert.IsFalse(qso.IsCallingCQ);
@@ -290,7 +320,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("TNX BOB 73 GL", qso.Report);
 
             decode.Message = "PA9XYZ 590003";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Unknown, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.DXCallsign);
@@ -299,7 +329,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "G4ABC/P R 570";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Unknown, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.DXCallsign);
@@ -310,7 +340,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
 
             // DXpedition mode
             decode.Message = "K1ABC RR73; W9XYZ <KH1/KH7Z> -08";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual("W9XYZ", qso.DXCallsign);
@@ -320,7 +350,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
 
             //ARRL Field Day
             decode.Message = "W9XYZ K1ABC R 17B EMA";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual("W9XYZ", qso.DXCallsign);
@@ -330,7 +360,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
 
             //Telemetry
             decode.Message = "123456789ABCDEF012";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Unknown, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.DXCallsign);
@@ -340,7 +370,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
 
             #region Standard msg
             decode.Message = "CQ K1ABC FN42";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -350,7 +380,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "K1ABC W9XYZ EN37";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -360,7 +390,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("EN37", qso.GridSquare);
 
             decode.Message = "W9XYZ K1ABC -11";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -370,7 +400,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "K1ABC W9XYZ R-09";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -380,7 +410,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "W9XYZ K1ABC RRR";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -390,7 +420,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "K1ABC W9XYZ 73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Signoff, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -400,7 +430,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "K1ABC W9XYZ RR73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -410,7 +440,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "CQ FD K1ABC FN42";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("FD", qso.CallingModifier);
@@ -420,7 +450,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "CQ TEST K1ABC/R FN42";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("TEST", qso.CallingModifier);
@@ -430,7 +460,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "K1ABC/R W9XYZ EN37";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -440,7 +470,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("EN37", qso.GridSquare);
 
             decode.Message = "W9XYZ K1ABC/R R FN42";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -450,7 +480,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "K1ABC/R W9XYZ RR73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -460,7 +490,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "CQ TEST K1ABC FN42";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("TEST", qso.CallingModifier);
@@ -470,7 +500,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("FN42", qso.GridSquare);
 
             decode.Message = "W9XYZ <PJ4/K1ABC> -11";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -480,7 +510,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<PJ4/K1ABC> W9XYZ R-09";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -490,7 +520,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "CQ W9XYZ EN37";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -500,7 +530,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("EN37", qso.GridSquare);
 
             decode.Message = "<YW18FIFA> W9XYZ -11";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -510,7 +540,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "W9XYZ <YW18FIFA> R-09";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -520,7 +550,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<YW18FIFA> KA1ABC";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -530,7 +560,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "KA1ABC <YW18FIFA> -11";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -540,7 +570,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<YW18FIFA> KA1ABC R-17";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -550,7 +580,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<YW18FIFA> KA1ABC 73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Signoff, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -562,7 +592,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
 
             #region EU VHF Contest
             decode.Message = "CQ G4ABC/P IO91";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -572,7 +602,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("IO91", qso.GridSquare);
 
             decode.Message = "G4ABC/P PA9XYZ JO22";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -582,7 +612,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("JO22", qso.GridSquare);
 
             decode.Message = "PA9XYZ G4ABC/P RR73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -594,7 +624,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
 
             #region ARRL RTTY Roundup
             decode.Message = "K1ABC W9XYZ 579 WI";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -604,7 +634,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "W9XYZ K1ABC R 589 MA";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -614,7 +644,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "K1ABC KA0DEF 559 MO";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -624,7 +654,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "TU; KA0DEF K1ABC R 569 MA";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -634,7 +664,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "KA1ABC G3AAA 529 0013";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -644,7 +674,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "TU; G3AAA K1ABC R 559 MA";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -656,7 +686,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
 
             #region Nonstandard call
             decode.Message = "CQ KH1/KH7Z";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -666,7 +696,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "CQ PJ4/K1ABC";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -676,7 +706,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "PJ4/K1ABC <W9XYZ>";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -686,7 +716,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<W9XYZ> PJ4/K1ABC RRR";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -696,7 +726,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "PJ4/K1ABC <W9XYZ> 73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Signoff, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -706,7 +736,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<W9XYZ> YW18FIFA";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -716,7 +746,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "YW18FIFA <W9XYZ> RRR";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -726,7 +756,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<W9XYZ> YW18FIFA 73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Signoff, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -736,7 +766,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "CQ YW18FIFA";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -746,7 +776,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.GridSquare);
 
             decode.Message = "<KA1ABC> YW18FIFA RR73";
-            qso = WsjtxQsoParser.ParseDecode(decode);
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.Rogers, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
