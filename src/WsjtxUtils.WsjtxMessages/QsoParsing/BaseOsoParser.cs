@@ -16,7 +16,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <summary>
         /// Regular expression to match field day exchange
         /// </summary>
-        protected static Regex FieldDayExchange = new Regex(@"^([\d]+[A-F])$");
+        protected static Regex FieldDayExchangeRegex = new Regex(@"^([\d]+[A-F])$");
 
         /// <summary>
         /// Regular expression to match signal reports
@@ -145,7 +145,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <returns></returns>
         protected bool IsFieldDayExchange(string input)
         {
-            return FieldDayExchange.Match(input).Success;
+            return FieldDayExchangeRegex.Match(input).Success;
         }
 
         /// <summary>
