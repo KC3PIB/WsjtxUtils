@@ -15,7 +15,6 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <returns></returns>
         public static WsjtxQso ParseDecode(Decode decode)
         {
-
             switch (decode.Mode)
             {
                 case "FST4":

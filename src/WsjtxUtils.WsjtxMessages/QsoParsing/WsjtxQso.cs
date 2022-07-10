@@ -14,7 +14,6 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <param name="decode"></param>
         public WsjtxQso(Decode decode) : this(decode, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
         {
-
         }
 
         /// <summary>
