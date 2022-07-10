@@ -42,7 +42,6 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
                 return result;
             }
 
-
             // check if the message used priori data and setup indexes
             result.UsedPriori = PrioriRegex.Match(_parts.Last()).Success;
             _deCallSignIndex = 1;
