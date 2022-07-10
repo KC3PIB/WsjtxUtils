@@ -5,7 +5,7 @@ using WsjtxUtils.WsjtxMessages.Messages;
 namespace WsjtxUtils.WsjtxMessages.QsoParsing
 {
     /// <summary>
-    /// Qso parser for modes with 77-bit message payloads
+    /// QSO parser for WSJT-X modes with 77-bit message payloads
     /// </summary>
     internal class WsjtxQsoParser77BitModes : BaseOsoParser
     {
@@ -15,7 +15,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         private int _dxCallSignIndex;
 
         /// <summary>
-        /// 
+        /// Constructs a QSO parser for WSJT-X modes with 77-bit message payloads
         /// </summary>
         /// <param name="decodeMessage"></param>
         public WsjtxQsoParser77BitModes(Decode decodeMessage)
