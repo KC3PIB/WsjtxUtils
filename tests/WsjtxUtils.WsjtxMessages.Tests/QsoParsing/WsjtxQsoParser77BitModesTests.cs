@@ -25,7 +25,6 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             };
 
             var qso = WsjtxQsoParser.ParseDecode(status, decode);
-            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual(string.Empty, qso.DXCallsign);
@@ -76,12 +75,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             var decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FT8",
                 Message = "CQ TEST G4ABC IO91"
             };
 
             var qso = WsjtxQsoParser.ParseDecode(status, decode);
-            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("TEST", qso.CallingModifier);
@@ -135,12 +132,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             var decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FT8",
                 Message = "CQ WW K1ABC FN42"
             };
 
             var qso = WsjtxQsoParser.ParseDecode(status, decode);
-            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.AreEqual("WW", qso.CallingModifier);
@@ -184,12 +179,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             var decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FT8",
                 Message = "CQ FD K1ABC FN42"
             };
 
             var qso = WsjtxQsoParser.ParseDecode(status, decode);
-            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual("FD", qso.CallingModifier);
@@ -234,12 +227,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             var decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FT8",
                 Message = "CQ PJ4/K1ABC"
             };
 
             var qso = WsjtxQsoParser.ParseDecode(status, decode);
-            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
             Assert.IsTrue(qso.IsCallingCQ);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -305,12 +296,10 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             var decode = new Decode()
             {
                 Id = "WSJT-X",
-                Mode = "FT8",
                 Message = "TNX BOB 73 GL"
             };
 
             var qso = WsjtxQsoParser.ParseDecode(status, decode);
-            Assert.AreEqual(decode.Mode, qso.Mode);
             Assert.AreEqual(WsjtxQsoState.Unknown, qso.QsoState);
             Assert.IsFalse(qso.IsCallingCQ);
             Assert.AreEqual(string.Empty, qso.CallingModifier);
@@ -785,6 +774,153 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("RR73", qso.Report);
             Assert.AreEqual(string.Empty, qso.GridSquare);
             #endregion
+        }
+
+        [TestMethod()]
+        public void WsjtxQsoParser_Parses77BitModeCorrectly_WhenUsingLiveOutput()
+        {
+            var status = new Status()
+            {
+                Mode = "FT8"
+            };
+
+            var decode = new Decode()
+            {
+                New = true,
+                Time = 71400000,
+                Snr = -6,
+                OffsetTimeSeconds = 0.3f,
+                OffsetFrequencyHz = 1295,
+                Mode = "~",
+                Message = "CQ N4BUA EL87                       ? a1",
+                LowConfidence = true,
+                OffAir = false,
+                Id = "WSJT-X"
+            };
+
+            var qso = WsjtxQsoParser.ParseDecode(status, decode);
+            Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
+            Assert.IsTrue(qso.IsCallingCQ);
+            Assert.AreEqual(string.Empty, qso.CallingModifier);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("N4BUA", qso.DECallsign);
+            Assert.AreEqual("EL87", qso.GridSquare);
+            Assert.AreEqual(string.Empty, qso.Report);
+
+            decode = new Decode()
+            {
+                New = true,
+                Time = 71415000,
+                Snr = -6,
+                OffsetTimeSeconds = 0.2f,
+                OffsetFrequencyHz = 1771,
+                Mode = "~",
+                Message = "<...> AC0TG EM13",
+                LowConfidence = false,
+                OffAir = false,
+                Id = "WSJT-X"
+            };
+
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
+            Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
+            Assert.IsFalse(qso.IsCallingCQ);
+            Assert.AreEqual(string.Empty, qso.CallingModifier);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("AC0TG", qso.DECallsign);
+            Assert.AreEqual("EM13", qso.GridSquare);
+            Assert.AreEqual(string.Empty, qso.Report);
+
+            decode = new Decode()
+            {
+                New = true,
+                Time = 71205000,
+                Snr = -22,
+                OffsetTimeSeconds = 3.3f,
+                OffsetFrequencyHz = 1840,
+                Mode = "~",
+                Message = "<...> <...> 591157 IF23DE",
+                LowConfidence = false,
+                OffAir = false,
+                Id = "WSJT-X"
+            };
+
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
+            Assert.AreEqual(WsjtxQsoState.Report, qso.QsoState);
+            Assert.IsFalse(qso.IsCallingCQ);
+            Assert.AreEqual(string.Empty, qso.CallingModifier);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual(string.Empty, qso.DECallsign);
+            Assert.AreEqual("IF23DE", qso.GridSquare);
+            Assert.AreEqual("591157 IF23DE", qso.Report);
+
+            decode = new Decode()
+            {
+                New = true,
+                Time = 69930000,
+                Snr = -17,
+                OffsetTimeSeconds = 0.3f,
+                OffsetFrequencyHz = 656,
+                Mode = "~",
+                Message = "HZ8FTDMC <...> 73",
+                LowConfidence = false,
+                OffAir = false,
+                Id = "WSJT-X"
+            };
+
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
+            Assert.AreEqual(WsjtxQsoState.Signoff, qso.QsoState);
+            Assert.IsFalse(qso.IsCallingCQ);
+            Assert.AreEqual(string.Empty, qso.CallingModifier);
+            Assert.AreEqual("HZ8FTDMC", qso.DXCallsign);
+            Assert.AreEqual(string.Empty, qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.GridSquare);
+            Assert.AreEqual("73", qso.Report);
+
+            decode = new Decode()
+            {
+                New = true,
+                Time = 71655000,
+                Snr = 4,
+                OffsetTimeSeconds = 0.3f,
+                OffsetFrequencyHz = 2388,
+                Mode = "~",
+                Message = "<...> KO4HKC R-20",
+                LowConfidence = false,
+                OffAir = false,
+                Id = "WSJT-X"
+            };
+
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
+            Assert.AreEqual(WsjtxQsoState.RogerReport, qso.QsoState);
+            Assert.IsFalse(qso.IsCallingCQ);
+            Assert.AreEqual(string.Empty, qso.CallingModifier);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("KO4HKC", qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.GridSquare);
+            Assert.AreEqual("R-20", qso.Report);
+
+            decode = new Decode()
+            {
+                New = true,
+                Time = 71415000,
+                Snr = -6,
+                OffsetTimeSeconds = 0.2f,
+                OffsetFrequencyHz = 1771,
+                Mode = "~",
+                Message = "<...> <...>",
+                LowConfidence = false,
+                OffAir = false,
+                Id = "WSJT-X"
+            };
+
+            qso = WsjtxQsoParser.ParseDecode(status, decode);
+            Assert.AreEqual(WsjtxQsoState.CallingStation, qso.QsoState);
+            Assert.IsFalse(qso.IsCallingCQ);
+            Assert.AreEqual(string.Empty, qso.CallingModifier);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual(string.Empty, qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.GridSquare);
+            Assert.AreEqual(string.Empty, qso.Report);
         }
     }
 }

@@ -132,7 +132,8 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         private void ParseTwoParts(WsjtxQso qso)
         {
             // is this two callsigns with nothing else?
-            if (IsValidCallsign(_parts[_dxCallSignIndex]) && IsValidCallsign(_parts[_deCallSignIndex]))
+            if ((IsValidCallsign(_parts[_dxCallSignIndex]) || _parts[_dxCallSignIndex] == "...") &&
+                (IsValidCallsign(_parts[_deCallSignIndex]) || _parts[_deCallSignIndex] == "..."))
             {
                 qso.QsoState = WsjtxQsoState.CallingStation;
             }
