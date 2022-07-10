@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -151,7 +153,7 @@ namespace WsjtxUtils.WsjtxUdpServer
             if (string.IsNullOrEmpty(message.Id))
                 throw new ArgumentException($"The client id can not be null or empty when sending {typeof(T).Name}.", nameof(message));
 
-            var datagramBuffer = GC.AllocateArray<byte>(_datagramBufferSize, true);
+            var datagramBuffer = new byte[_datagramBufferSize];
             var bytesWritten = message.WriteMessageTo(datagramBuffer);
             return _socket.SendTo(datagramBuffer, bytesWritten, SocketFlags.None, remoteEndpoint);
         }
@@ -169,9 +171,9 @@ namespace WsjtxUtils.WsjtxUdpServer
             if (string.IsNullOrEmpty(message.Id))
                 throw new ArgumentException($"The client id can not be null or empty when sending {typeof(T).Name}.", nameof(message));
 
-            var datagramBuffer = GC.AllocateArray<byte>(_datagramBufferSize, true).AsMemory();
+            var datagramBuffer = new byte[_datagramBufferSize];
             var bytesWritten = message.WriteMessageTo(datagramBuffer);
-            return await _socket.SendToAsync(datagramBuffer[..bytesWritten], SocketFlags.None, remoteEndpoint, cancellationToken);
+            return await _socket.SendToAsync(new ArraySegment<byte>(datagramBuffer, 0, bytesWritten), SocketFlags.None, remoteEndpoint);
         }
 
         /// <summary>
@@ -212,13 +214,13 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <returns></returns>
         private async Task HandleDatagramLoopAsync(CancellationToken cancellationToken)
         {
-            var datagramBuffer = GC.AllocateArray<byte>(_datagramBufferSize, true).AsMemory();
+            var datagramBuffer = new byte[_datagramBufferSize];
 
             while (!cancellationToken.IsCancellationRequested)
             {
                 // wait for and read the next datagram into the buffer
-                var result = await _socket.ReceiveFromAsync(datagramBuffer, SocketFlags.None, LocalEndpoint, cancellationToken);
-                var message = datagramBuffer.DeserializeWsjtxMessage();
+                var result = await _socket.ReceiveFromAsync(new ArraySegment<byte>(datagramBuffer), SocketFlags.None, LocalEndpoint);
+                var message = datagramBuffer.AsMemory().DeserializeWsjtxMessage();
 
                 // get the correct handler for the given message type
                 _ = message?.MessageType switch

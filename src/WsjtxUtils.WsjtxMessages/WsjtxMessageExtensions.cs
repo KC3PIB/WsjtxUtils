@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using WsjtxUtils.WsjtxMessages.Messages;
 
 namespace WsjtxUtils.WsjtxMessages

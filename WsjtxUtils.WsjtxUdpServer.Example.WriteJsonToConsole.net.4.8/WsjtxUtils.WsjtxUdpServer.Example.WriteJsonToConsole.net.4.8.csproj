@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E8FA5EA5-361E-4BB5-A026-78E6573DC3AB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>WsjtxUtils.WsjtxUdpServer.Example.WriteJsonToConsole.net._4._8</RootNamespace>
+    <AssemblyName>WsjtxUtils.WsjtxUdpServer.Example.WriteJsonToConsole.net.4.8</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <LangVersion>10.0</LangVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=6.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.6.0.5\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Clear.cs">
+      <Link>Clear.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\ClearWindow.cs">
+      <Link>ClearWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Close.cs">
+      <Link>Close.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Configure.cs">
+      <Link>Configure.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Decode.cs">
+      <Link>Decode.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\FreeText.cs">
+      <Link>FreeText.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\HaltTx.cs">
+      <Link>HaltTx.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Heartbeat.cs">
+      <Link>Heartbeat.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\HighlightCallsign.cs">
+      <Link>HighlightCallsign.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\IWsjtxDirectionIn.cs">
+      <Link>IWsjtxDirectionIn.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\IWsjtxDirectionOut.cs">
+      <Link>IWsjtxDirectionOut.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\KeyboardModifiers.cs">
+      <Link>KeyboardModifiers.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Location.cs">
+      <Link>Location.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\LoggedAdif.cs">
+      <Link>LoggedAdif.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\MessageType.cs">
+      <Link>MessageType.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\QColor.cs">
+      <Link>QColor.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\QColors.cs">
+      <Link>QColors.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\QColorSpec.cs">
+      <Link>QColorSpec.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\QsoLogged.cs">
+      <Link>QsoLogged.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Replay.cs">
+      <Link>Replay.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Reply.cs">
+      <Link>Reply.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\SchemaVersion.cs">
+      <Link>SchemaVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\SpecialOperationMode.cs">
+      <Link>SpecialOperationMode.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Status.cs">
+      <Link>Status.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\SwitchConfiguration.cs">
+      <Link>SwitchConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\Timespec.cs">
+      <Link>Timespec.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\WsjtxMessage.cs">
+      <Link>WsjtxMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\Messages\WSPRDecode.cs">
+      <Link>WSPRDecode.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\WsjtxBaseReaderWriter.cs">
+      <Link>WsjtxBaseReaderWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\WsjtxConstants.cs">
+      <Link>WsjtxConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\WsjtxMessageExtensions.cs">
+      <Link>WsjtxMessageExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\WsjtxMessageReader.cs">
+      <Link>WsjtxMessageReader.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxMessages\WsjtxMessageWriter.cs">
+      <Link>WsjtxMessageWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxUdpServer.Example.WriteJsonToConsole\Program.cs">
+      <Link>Program.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxUdpServer.Example.WriteJsonToConsole\WriteMessageToConsoleAsJsonHandler.cs">
+      <Link>WriteMessageToConsoleAsJsonHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxUdpServer\IWsjtxUdpMessageHandler.cs">
+      <Link>IWsjtxUdpMessageHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxUdpServer\WsjtxConnectedClient.cs">
+      <Link>WsjtxConnectedClient.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxUdpServer\WsjtxUdpServer.cs">
+      <Link>WsjtxUdpServer.cs</Link>
+    </Compile>
+    <Compile Include="..\src\WsjtxUtils.WsjtxUdpServer\WsjtxUdpServerBaseAsyncMessageHandler.cs">
+      <Link>WsjtxUdpServerBaseAsyncMessageHandler.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets'))" />
+  </Target>
+</Project>
