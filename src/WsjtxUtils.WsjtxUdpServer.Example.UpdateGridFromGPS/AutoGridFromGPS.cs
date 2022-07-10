@@ -101,7 +101,7 @@ namespace WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS
             {
                 Console.WriteLine($"Sending location packet to {client.ClientId} {client.Endpoint} with grid {_currentGridsquare}");
                 await _server.SendMessageToAsync(client.Endpoint, new Location(client.ClientId, _currentGridsquare), cancellationToken);
-            }   
+            }
         }
 
         /// <summary>

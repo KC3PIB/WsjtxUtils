@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using WsjtxUtils.WsjtxMessages.Tests.Messages;
 
 namespace WsjtxUtils.WsjtxMessages.Tests
 {
