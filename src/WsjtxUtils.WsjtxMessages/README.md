@@ -14,7 +14,7 @@ var buffer = GC.AllocateArray<byte>(1500, false);
 var numberOfBytesWritten = message.WriteMessageTo(buffer);
 ```
 
-[WsjtxQsoParser](QsoParsing/WsjtxQsoParser.cs) is a utility class attempting to extract as much relevant QSO information from 77-bit modes (FST4, FT4, FT8, MSK144, Q65) WSJT-X [Decode](Messages/Decode.cs) messages. The returned [WsjtxQso](QsoParsing/WsjtxQso.cs) will have the state of the QSO in progress and callsigns, grid square, and report if available.
+[WsjtxQsoParser](https://github.com/KC3PIB/WsjtxUtils/blob/main/src/WsjtxUtils.WsjtxMessages/QsoParsing/WsjtxQsoParser.cs) is a utility class attempting to extract as much relevant QSO information from 77-bit modes (FST4, FT4, FT8, MSK144, Q65) WSJT-X [Decode](https://github.com/KC3PIB/WsjtxUtils/blob/main/src/WsjtxUtils.WsjtxMessages/Messages/Decode.cs) messages. The returned [WsjtxQso](src/WsjtxUtils.WsjtxMessages/QsoParsing/WsjtxQso.cs) will have the state of the QSO in progress and callsigns, grid square, and report if available.
 ```csharp
 var qso = WsjtxQsoParser.ParseDecode(status.Mode, decode);
  
