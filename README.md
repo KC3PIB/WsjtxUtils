@@ -15,7 +15,7 @@ Precompiled packages are available via NuGet.
 - [WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS](#wsjtxutilswsjtxudpserverexampleupdategridfromgps)
 
 ## WsjtxUtils.WsjtxMessages
-The [WsjtxMessages](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxMessages) library contains the classes and methods needed to serialize and deserialize WSJT-X messages in the QT QDataStream format specified in the WSJT-X source code in [NetworkMessage.hpp](https://sourceforge.net/p/wsjt/wsjtx/ci/master/tree/Network/NetworkMessage.hpp).
+The [WsjtxMessages](src/WsjtxUtils.WsjtxMessages) library contains the classes and methods needed to serialize and deserialize WSJT-X messages in the QT QDataStream format specified in the WSJT-X source code in [NetworkMessage.hpp](https://sourceforge.net/p/wsjt/wsjtx/ci/master/tree/Network/NetworkMessage.hpp).
 
 We can easily read messages from a memory source using the extensions methods provided.
 ```csharp
@@ -31,7 +31,17 @@ var buffer = GC.AllocateArray<byte>(1500, false);
 var numberOfBytesWritten = message.WriteMessageTo(buffer);
 ```
 
-[WsjtxUtils.WsjtxMessages](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxMessages) does not contain a server implementation to allow flexibility and use cases where no server or a custom server is required.
+[WsjtxQsoParser](https://github.com/KC3PIB/WsjtxUtils/blob/main/src/WsjtxUtils.WsjtxMessages/QsoParsing/WsjtxQsoParser.cs) is a utility class attempting to extract as much relevant QSO information from 77-bit modes (FST4, FT4, FT8, MSK144, Q65) WSJT-X [Decode](https://github.com/KC3PIB/WsjtxUtils/blob/main/src/WsjtxUtils.WsjtxMessages/Messages/Decode.cs) messages. The returned [WsjtxQso](src/WsjtxUtils.WsjtxMessages/QsoParsing/WsjtxQso.cs) will have the state of the QSO in progress and callsigns, grid square, and report if available.
+```csharp
+var qso = WsjtxQsoParser.ParseDecode(status.Mode, decode);
+ 
+var dxCallsign = qso.DXCallsign;
+var deCallsign = qso.DECallsign;
+var grid = qso.GridSquare;
+var report = qso.Report;
+```
+
+[WsjtxUtils.WsjtxMessages](src/WsjtxUtils.WsjtxMessages) does not contain a server implementation to allow flexibility and use cases where no server or a custom server is required.
 
 ## WsjtxUtils.WsjtxUdpServer
 [WsjtxUdpServer](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer/WsjtxUdpServer.cs) is a lightweight, multicast-capable, asynchronous UDP server for WSJT-X clients. [IWsjtxUdpMessageHandler](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) describes an interface that allows WsjtxUdpServer to handle all potential incoming messages from WSJT-X.  Create a class that implements [IWsjtxUdpMessageHandler](https://github.com/KC3PIB/WsjtxUtils/tree/main/src/WsjtxUtils.WsjtxUdpServer/IWsjtxUdpMessageHandler.cs) and pass this class to the UDP server's constructor to begin processing messages asynchronously.

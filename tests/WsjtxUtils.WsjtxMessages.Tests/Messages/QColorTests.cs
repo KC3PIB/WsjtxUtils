@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using WsjtxUtils.WsjtxMessages.Messages;
@@ -13,7 +12,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
         [TestMethod()]
         public void CreateQColorFrom_WindowsColor_ProducesValidColorValues()
         {
-            QColor red = new QColor(Color.Red);
+            var red = new QColor(Color.Red);
 
             Assert.AreEqual(QColorSpec.Rgb, red.Spec);
             Assert.AreEqual((uint)Color.Red.R << 8, red.Red);
@@ -22,7 +21,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
             Assert.AreEqual((uint)Color.Red.A << 8, red.Alpha);
             Assert.AreEqual(0, red.Pad);
 
-            QColor green = new QColor(Color.Green);
+            var green = new QColor(Color.Green);
 
             Assert.AreEqual(QColorSpec.Rgb, green.Spec);
             Assert.AreEqual((uint)Color.Green.R << 8, green.Red);
@@ -31,7 +30,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
             Assert.AreEqual((uint)Color.Green.A << 8, green.Alpha);
             Assert.AreEqual(0, green.Pad);
 
-            QColor blue = new QColor(Color.Blue);
+            var blue = new QColor(Color.Blue);
 
             Assert.AreEqual(QColorSpec.Rgb, blue.Spec);
             Assert.AreEqual((uint)Color.Blue.R << 8, blue.Red);
@@ -40,7 +39,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
             Assert.AreEqual((uint)Color.Blue.A << 8, blue.Alpha);
             Assert.AreEqual(0, blue.Pad);
 
-            QColor chartreuse = new QColor(Color.Chartreuse);
+            var chartreuse = new QColor(Color.Chartreuse);
 
             Assert.AreEqual(QColorSpec.Rgb, chartreuse.Spec);
             Assert.AreEqual((uint)Color.Chartreuse.R << 8, chartreuse.Red);
@@ -49,7 +48,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
             Assert.AreEqual((uint)Color.Chartreuse.A << 8, chartreuse.Alpha);
             Assert.AreEqual(0, chartreuse.Pad);
 
-            QColor transparent = new QColor(Color.Transparent);
+            var transparent = new QColor(Color.Transparent);
 
             Assert.AreEqual(QColorSpec.Rgb, transparent.Spec);
             Assert.AreEqual((uint)Color.Transparent.R << 8, transparent.Red);
@@ -62,7 +61,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
         [TestMethod()]
         public void CreateQColorFrom_HtmlColor_ProducesValidColorValues()
         {
-            QColor color = new QColor("#FFBF00");
+            var color = new QColor("#FFBF00");
 
             Assert.AreEqual(QColorSpec.Rgb, color.Spec);
             Assert.AreEqual((uint)255 << 8, color.Red);
@@ -82,7 +81,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
         [TestMethod()]
         public void CreateQColorFrom_WithNoParameters_ProducesInvalidColorspec()
         {
-            QColor color = new QColor();
+            var color = new QColor();
 
             Assert.AreEqual(QColorSpec.Invalid, color.Spec);
             Assert.AreEqual(0, color.Red);
@@ -95,7 +94,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
         [TestMethod()]
         public void CreateQColor_WithColorEmpty_ProducesInvalidColorspec()
         {
-            QColor color = new QColor(Color.Empty);
+            var color = new QColor(Color.Empty);
 
             Assert.AreEqual(QColorSpec.Invalid, color.Spec);
             Assert.AreEqual(0, color.Red);

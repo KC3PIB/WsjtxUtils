@@ -42,7 +42,7 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
         [TestMethod()]
         public void WriteReplyMessageTo_RawBytes_ProducesValidOutput()
         {
-            Decode decode = new Decode
+            var decode = new Decode
             {
                 Id = "WSJT-X - Slice-A",
                 New = true,
