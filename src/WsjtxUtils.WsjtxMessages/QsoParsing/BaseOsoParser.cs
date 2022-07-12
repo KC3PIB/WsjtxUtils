@@ -63,6 +63,8 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <returns></returns>
         public abstract WsjtxQso Parse();
 
+
+
         #region Protected Methods
         /// <summary>
         /// Try to get a signal report value from the input
@@ -72,14 +74,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <returns></returns>
         protected bool TryGetReceptionReport(string input, out string report)
         {
-            report = string.Empty;
-
-            var match = ReceptionReportRegex.Match(input);
-            if (!match.Success)
-                return false;
-
-            report = match!.Value;
-            return true;
+            return TryGetRegex(ReceptionReportRegex, input, out report);
         }
 
         /// <summary>
@@ -90,14 +85,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <returns></returns>
         protected bool TryGetGridsquare(string input, out string gridSquare)
         {
-            gridSquare = string.Empty;
-
-            var match = GridSquareLocatorRegex.Match(input);
-            if (!match.Success)
-                return false;
-
-            gridSquare = match!.Value;
-            return true;
+            return TryGetRegex(GridSquareLocatorRegex, input, out gridSquare);
         }
 
         /// <summary>
@@ -108,14 +96,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <returns></returns>
         protected bool TryGetCallsign(string input, out string callsign)
         {
-            callsign = string.Empty;
-
-            var match = CallsignRegex.Match(input);
-            if (!match.Success)
-                return false;
-
-            callsign = match!.Value;
-            return true;
+            return TryGetRegex(CallsignRegex, input, out callsign);
         }
 
         /// <summary>
@@ -156,6 +137,26 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         protected bool IsUSStateOrCanadianProvinces(string input)
         {
             return USStatesRegex.Match(input).Success || CanadianProvincesRegex.Match(input).Success;
+        }
+        #endregion
+
+        #region static methods
+        /// <summary>
+        /// Try to get the matching value in the regex
+        /// </summary>
+        /// <param name="regex"></param>
+        /// <param name="input"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static bool TryGetRegex(Regex regex, string input, out string value)
+        {
+            value = string.Empty;
+            var match = regex.Match(input);
+            if (!match.Success)
+                return false;
+
+            value = match!.Value;
+            return true;
         }
         #endregion
     }

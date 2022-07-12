@@ -25,7 +25,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
                 case "Q65":
                     return new WsjtxQsoParser77BitModes(decode).Parse();
                 default:
-                    throw new NotImplementedException($"A QSO parser for {decode.Mode} is not implemented");
+                    throw new NotImplementedException($"A QSO parser for {mode} is not implemented");
             }
         }
 
