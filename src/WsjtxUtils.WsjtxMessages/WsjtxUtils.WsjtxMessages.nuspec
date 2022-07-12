@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/KC3PIB/WsjtxUtils/</projectUrl>
     <description>$description$</description>
     <copyright>$copyright$</copyright>
-    <!--<readme>README.md</readme> -->
+    <readme>README.md</readme>
     <dependencies>
       <group targetFramework="net6.0" />
     </dependencies>
