@@ -11,13 +11,14 @@
     <projectUrl>https://github.com/KC3PIB/WsjtxUtils/</projectUrl>
     <description>$description$</description>
     <copyright>$copyright$</copyright>
-    <readme>README.md</readme>
+    <!--<readme>README.md</readme> -->
     <dependencies>
       <group targetFramework="net6.0" />
     </dependencies>
   </metadata>
   <files>
+    <file src="lib\**" target="lib/{framework name}[{version}]" />
     <file src="..\..\LICENSE" target="\" />
-    <file src="README.md" target="\" />
+    <file src="README.md" target="\lib\" />
   </files>
 </package>
