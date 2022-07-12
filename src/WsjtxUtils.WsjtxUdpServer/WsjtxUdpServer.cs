@@ -1,6 +1,5 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
+using System.Buffers;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -153,9 +152,16 @@ namespace WsjtxUtils.WsjtxUdpServer
             if (string.IsNullOrEmpty(message.Id))
                 throw new ArgumentException($"The client id can not be null or empty when sending {typeof(T).Name}.", nameof(message));
 
-            var datagramBuffer = new byte[_datagramBufferSize];
-            var bytesWritten = message.WriteMessageTo(datagramBuffer);
-            return _socket.SendTo(datagramBuffer, bytesWritten, SocketFlags.None, remoteEndpoint);
+            var datagramBuffer = ArrayPool<byte>.Shared.Rent(_datagramBufferSize);
+            try
+            {
+                var bytesWritten = message.WriteMessageTo(datagramBuffer);
+                return _socket.SendTo(datagramBuffer, bytesWritten, SocketFlags.None, remoteEndpoint);
+            }
+            finally
+            {
+                ArrayPool<byte>.Shared.Return(datagramBuffer);
+            }
         }
 
         /// <summary>
@@ -171,9 +177,16 @@ namespace WsjtxUtils.WsjtxUdpServer
             if (string.IsNullOrEmpty(message.Id))
                 throw new ArgumentException($"The client id can not be null or empty when sending {typeof(T).Name}.", nameof(message));
 
-            var datagramBuffer = new byte[_datagramBufferSize];
-            var bytesWritten = message.WriteMessageTo(datagramBuffer);
-            return await _socket.SendToAsync(new ArraySegment<byte>(datagramBuffer, 0, bytesWritten), SocketFlags.None, remoteEndpoint);
+            var datagramBuffer = ArrayPool<byte>.Shared.Rent(_datagramBufferSize);
+            try
+            {
+                var bytesWritten = message.WriteMessageTo(datagramBuffer);
+                return await _socket.SendToAsync(new ArraySegment<byte>(datagramBuffer, 0, bytesWritten), SocketFlags.None, remoteEndpoint);
+            }
+            finally
+            {
+                ArrayPool<byte>.Shared.Return(datagramBuffer);
+            }
         }
 
         /// <summary>
@@ -219,7 +232,11 @@ namespace WsjtxUtils.WsjtxUdpServer
             while (!cancellationToken.IsCancellationRequested)
             {
                 // wait for and read the next datagram into the buffer
+#if NETFRAMEWORK
                 var result = await _socket.ReceiveFromAsync(new ArraySegment<byte>(datagramBuffer), SocketFlags.None, LocalEndpoint);
+#else
+                var result = await _socket.ReceiveFromAsync(datagramBuffer, SocketFlags.None, LocalEndpoint, cancellationToken);
+#endif
                 var message = datagramBuffer.AsMemory().DeserializeWsjtxMessage();
 
                 // get the correct handler for the given message type
@@ -237,9 +254,9 @@ namespace WsjtxUtils.WsjtxUdpServer
                 };
             }
         }
-        #endregion
+#endregion
 
-        #region Static Methods
+#region Static Methods
         /// <summary>
         /// Determine if the address is a multicast group
         /// </summary>
@@ -256,6 +273,6 @@ namespace WsjtxUtils.WsjtxUdpServer
 
             return false;
         }
-        #endregion
+#endregion
     }
 }
