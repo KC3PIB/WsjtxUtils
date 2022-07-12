@@ -123,7 +123,7 @@ namespace WsjtxUtils.WsjtxMessages
             if (textByteCount == 0)
                 return;
 
-            if (!MemoryMarshal.TryGetArray(buffer[Position..], out ArraySegment<byte> segment) && segment.Array != null)
+            if (!MemoryMarshal.TryGetArray(buffer.Slice(Position), out ArraySegment<byte> segment) && segment.Array != null)
                 throw new InsufficientMemoryException("Unable to allocate the array from the underlying buffer.");
 
             Encoding.UTF8.GetBytes(value, 0, value.Length, segment.Array!, segment.Offset);

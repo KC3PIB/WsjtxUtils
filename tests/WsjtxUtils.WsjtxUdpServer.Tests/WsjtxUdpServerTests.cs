@@ -47,14 +47,14 @@ namespace WsjtxUtils.WsjtxUdpServer.Tests
             // Act
             server.Start(cancellationTokenSource);
 
-            client.Send(HeartbeatMessage.Span, serverEndpoint);
-            client.Send(StatusMessage.Span, serverEndpoint);
-            client.Send(DecodeMessage.Span, serverEndpoint);
-            client.Send(ClearMessage.Span, serverEndpoint);
-            client.Send(OsoLoggedMessage.Span, serverEndpoint);
-            client.Send(CloseMessage.Span, serverEndpoint);
-            client.Send(WSPRDecodeMessage.Span, serverEndpoint);
-            client.Send(LoggedAdiMessage.Span, serverEndpoint);
+            client.Send(HeartbeatMessage.Span.ToArray(), HeartbeatMessage.Span.Length, serverEndpoint);
+            client.Send(StatusMessage.Span.ToArray(), StatusMessage.Span.Length, serverEndpoint);
+            client.Send(DecodeMessage.Span.ToArray(), DecodeMessage.Span.Length, serverEndpoint);
+            client.Send(ClearMessage.Span.ToArray(), ClearMessage.Span.Length, serverEndpoint);
+            client.Send(OsoLoggedMessage.Span.ToArray(), OsoLoggedMessage.Span.Length, serverEndpoint);
+            client.Send(CloseMessage.Span.ToArray(), CloseMessage.Span.Length, serverEndpoint);
+            client.Send(WSPRDecodeMessage.Span.ToArray(), WSPRDecodeMessage.Span.Length, serverEndpoint);
+            client.Send(LoggedAdiMessage.Span.ToArray(), LoggedAdiMessage.Span.Length, serverEndpoint);
 
             // Assert
             Assert.IsTrue(server.IsRunning);
@@ -88,7 +88,7 @@ namespace WsjtxUtils.WsjtxUdpServer.Tests
             // Act
             server.Start(cancellationTokenSource);
 
-            client.Send(HeartbeatMessage.Span, serverEndpoint);
+            client.Send(HeartbeatMessage.Span.ToArray(), HeartbeatMessage.Span.Length, serverEndpoint);
 
             // allow any remaing packets to be processed
             Thread.Sleep(1000);
