@@ -65,6 +65,27 @@
         /// </summary>
         public bool OffAir { get; set; }
 
+        /// <summary>
+        /// Convert the mode notation into a more friendly mode string
+        /// </summary>
+        /// <remarks>https://physics.princeton.edu/pulsar/k1jt/wsjtx-doc/wsjtx-main-2.5.4.html#_decoded_lines</remarks>
+        /// <returns></returns>
+        public string DecodeModeNotationsToString()
+        {
+            return Mode switch
+            {
+                "`" => "FST4",
+                "+" => "FT4",
+                "~" => "FT8",
+                "$" => "JT4",
+                "@" => "JT9",
+                "#" => "JT65",
+                ":" => "Q65",
+                "&" => "MSK144",
+                _ => string.Empty
+            };
+        }
+
         #region IWsjtxDirectionOut
         /// <summary>
         ///  Using the <see cref="WsjtxMessageReader"/>, deserialize the values to the current message
