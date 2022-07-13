@@ -63,8 +63,6 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <returns></returns>
         public abstract WsjtxQso Parse();
 
-
-
         #region Protected Methods
         /// <summary>
         /// Try to get a signal report value from the input
