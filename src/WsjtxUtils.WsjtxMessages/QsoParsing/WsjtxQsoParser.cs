@@ -12,10 +12,10 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// Attempt to parse as much information as possible about the OSO of a WSJT-X decode packet
         /// </summary>
         /// <param name="decode"></param>
-        /// <param name="mode"></param>
         /// <returns></returns>
-        public static WsjtxQso ParseDecode(string mode, Decode decode)
+        public static WsjtxQso ParseDecode(Decode decode)
         {
+            var mode = decode.DecodeModeNotationsToString();
             switch (mode)
             {
                 case "FST4":
@@ -24,20 +24,13 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
                 case "MSK144":
                 case "Q65":
                     return new WsjtxQsoParser77BitModes(decode).Parse();
+                case "JT4":
+                case "JT9":
+                case "JT65":
+                    //TODO: 72-bit message payloads: JT4, JT9, and JT65
                 default:
                     throw new NotImplementedException($"A QSO parser for {mode} is not implemented");
             }
-        }
-
-        /// <summary>
-        /// Attempt to parse as much information as possible about the OSO of a WSJT-X decode packet
-        /// </summary>
-        /// <param name="status"></param>
-        /// <param name="decode"></param>
-        /// <returns></returns>
-        public static WsjtxQso ParseDecode(Status status, Decode decode)
-        {
-            return ParseDecode(status.Mode, decode);
         }
     }
 }
