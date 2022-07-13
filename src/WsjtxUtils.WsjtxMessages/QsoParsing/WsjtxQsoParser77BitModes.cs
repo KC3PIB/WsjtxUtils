@@ -238,13 +238,13 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
             // remove semicolons
             var semicolonIndex = message.IndexOf(';');
             if (semicolonIndex > -1)
-                message = message[(semicolonIndex + 1)..];
+                message = message.Substring(semicolonIndex + 1);
 
             // remove lt, gt, and split on spaces
             return message
                 .Replace("<", "")
                 .Replace(">", "")
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { ' ' }, options:StringSplitOptions.RemoveEmptyEntries)
                 .Where(part => part != "?")
                 .ToArray();
         }

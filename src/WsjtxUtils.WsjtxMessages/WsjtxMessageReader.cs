@@ -164,7 +164,7 @@ namespace WsjtxUtils.WsjtxMessages
             if (size == 0 || size == uint.MaxValue)
                 return string.Empty;
 
-            if (MemoryMarshal.TryGetArray(buffer[Position..], out ArraySegment<byte> segment) && segment.Array != null)
+            if (MemoryMarshal.TryGetArray(buffer.Slice(Position), out ArraySegment<byte> segment) && segment.Array != null)
             {
                 var length = Convert.ToInt32(size);
                 Position += length;
