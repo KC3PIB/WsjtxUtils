@@ -921,6 +921,20 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual(string.Empty, qso.DECallsign);
             Assert.AreEqual(string.Empty, qso.GridSquare);
             Assert.AreEqual(string.Empty, qso.Report);
+
+            Assert.AreEqual(decode.Id, qso.Source.Id);
+            Assert.AreEqual(decode.MagicNumber, qso.Source.MagicNumber);
+            Assert.AreEqual(decode.LowConfidence, qso.Source.LowConfidence);
+            Assert.AreEqual(decode.Message, qso.Source.Message);
+            Assert.AreEqual(decode.MessageType, qso.Source.MessageType);
+            Assert.AreEqual(decode.Mode, qso.Source.Mode);
+            Assert.AreEqual(decode.New, qso.Source.New);
+            Assert.AreEqual(decode.OffAir, qso.Source.OffAir);
+            Assert.AreEqual(decode.OffsetFrequencyHz, qso.Source.OffsetFrequencyHz);
+            Assert.AreEqual(decode.OffsetTimeSeconds, qso.Source.OffsetTimeSeconds);
+            Assert.AreEqual(decode.SchemaVersion, qso.Source.SchemaVersion);
+            Assert.AreEqual(decode.Snr, qso.Source.Snr);
+            Assert.AreEqual(decode.Time, qso.Source.Time);
         }
     }
 }
