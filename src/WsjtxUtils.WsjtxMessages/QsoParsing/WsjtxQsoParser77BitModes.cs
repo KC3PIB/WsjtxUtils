@@ -33,8 +33,8 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
             // setup result object
             WsjtxQso result = new WsjtxQso(_decodeMessage);
 
-            // if there is less than two parts, it's a message in a
-            // unknown state that can't be parsed
+            // if there is less than two parts, it's telemetry, freetext
+            // and in an unknown QSO state
             var length = _parts.Length;
             if (length < 2)
             {
