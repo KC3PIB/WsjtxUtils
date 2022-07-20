@@ -43,11 +43,11 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// </summary>
         protected static Regex CallsignRegex = new Regex(
             // portable prefix
-            @"^(?<portableprefix>(?:(?:[A-NPR-Z](?:(?:[A-Z](?:\d[A-Z]?)?)|(?:\d[\dA-Z]?))?)|(?:[2-9][A-Z]{1,2}\d?))\/)?" +
+            @"^(?<portableprefix>(?:(?:[A-PR-Z](?:(?:[A-Z](?:\d[A-Z]?)?)|(?:\d[\dA-Z]?))?)|(?:[2-9][A-Z]{1,2}\d?))\/)?" +
             // prefix
-            @"(?<callprefix>(?:(?:[A-NPR-Z][A-Z]?)|(?:[2-9][A-Z]{1,2}))\d)" +
+            @"(?<callprefix>(?:(?:[A-PR-Z][A-Z]?)|(?:[2-9][A-Z]{1,2}))\d)" +
             // suffix
-            @"(?<callsuffix>\d{0,3}[A-Z]{1,6})" +
+            @"(?<callsuffix>\d{0,3}[A-Z]{1,7})" +
             // modifier
             @"(?<modifier>\/[\dA-Z]{1,4})?$",
             RegexOptions.Compiled);
