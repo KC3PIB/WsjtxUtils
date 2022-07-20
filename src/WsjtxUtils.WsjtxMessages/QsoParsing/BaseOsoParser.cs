@@ -11,12 +11,12 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <summary>
         /// Regular expression to match ARRL sections
         /// </summary>
-        protected static Regex ArrlSectionRegex = new Regex(@"^(A[BKLRZ]|BC|C[OT]|D[EX]|EB|E[MNPW][AY]|GA|GTA|I[ADLN]|K[SY]|LA[X]?|M[ABDEINOST][CR]?|N[C-FHL-NTV][IJLYX]?|O[HKNR][ENSG]?|PAC|P[ER]|QC|RI|S[CDFJKNTV][GJLVX]?|TN|UT|V[AIT]|W[CIMNPTVWY][AFYX]?)$");
+        protected static Regex ArrlSectionRegex = new Regex(@"^(A[BKLRZ]|BC|C[OT]|D[EX]|EB|E[MNPW][AY]|GA|GTA|I[ADLN]|K[SY]|LA[X]?|M[ABDEINOST][CR]?|N[C-FHL-NTV][IJLYX]?|O[HKNR][ENSG]?|PAC|P[ER]|QC|RI|S[CDFJKNTV][GJLVX]?|TN|UT|V[AIT]|W[CIMNPTVWY][AFYX]?)$", RegexOptions.Compiled);
 
         /// <summary>
         /// Regular expression to match field day exchange
         /// </summary>
-        protected static Regex FieldDayExchangeRegex = new Regex(@"^([\d]+[A-F])$");
+        protected static Regex FieldDayExchangeRegex = new Regex(@"^([\d]+[A-F])$", RegexOptions.Compiled);
 
         /// <summary>
         /// Regular expression to match signal reports
@@ -55,7 +55,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <summary>
         /// Regular expression to match the use of priori
         /// </summary>
-        protected static Regex PrioriRegex = new Regex(@"^(a[1-6])$");
+        protected static Regex PrioriRegex = new Regex(@"^(a[1-6])$", RegexOptions.Compiled);
 
         /// <summary>
         /// Parse a <see cref="Decode"/> message into a <see cref="WsjtxQso"/>
