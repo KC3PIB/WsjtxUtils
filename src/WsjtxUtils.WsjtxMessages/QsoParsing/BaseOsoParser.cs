@@ -11,12 +11,12 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <summary>
         /// Regular expression to match ARRL sections
         /// </summary>
-        protected static Regex ArrlSectionRegex = new Regex(@"^(A[BKLRZ]|BC|C[OT]|D[EX]|EB|E[MNPW][AY]|GA|GTA|I[ADLN]|K[SY]|LA[X]?|M[ABDEINOST][CR]?|N[C-FHL-NTV][IJLYX]?|O[HKNR][ENSG]?|PAC|P[ER]|QC|RI|S[CDFJKNTV][GJLVX]?|TN|UT|V[AIT]|W[CIMNPTVWY][AFYX]?)$");
+        protected static Regex ArrlSectionRegex = new Regex(@"^(A[BKLRZ]|BC|C[OT]|D[EX]|EB|E[MNPW][AY]|GA|GTA|I[ADLN]|K[SY]|LA[X]?|M[ABDEINOST][CR]?|N[C-FHL-NTV][IJLYX]?|O[HKNR][ENSG]?|PAC|P[ER]|QC|RI|S[CDFJKNTV][GJLVX]?|TN|UT|V[AIT]|W[CIMNPTVWY][AFYX]?)$", RegexOptions.Compiled);
 
         /// <summary>
         /// Regular expression to match field day exchange
         /// </summary>
-        protected static Regex FieldDayExchangeRegex = new Regex(@"^([\d]+[A-F])$");
+        protected static Regex FieldDayExchangeRegex = new Regex(@"^([\d]+[A-F])$", RegexOptions.Compiled);
 
         /// <summary>
         /// Regular expression to match signal reports
@@ -43,11 +43,11 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// </summary>
         protected static Regex CallsignRegex = new Regex(
             // portable prefix
-            @"^(?<portableprefix>(?:(?:[A-NPR-Z](?:(?:[A-Z](?:\d[A-Z]?)?)|(?:\d[\dA-Z]?))?)|(?:[2-9][A-Z]{1,2}\d?))\/)?" +
+            @"^(?<portableprefix>(?:(?:[A-PR-Z](?:(?:[A-Z](?:\d[A-Z]?)?)|(?:\d[\dA-Z]?))?)|(?:[2-9][A-Z]{1,2}\d?))\/)?" +
             // prefix
-            @"(?<callprefix>(?:(?:[A-NPR-Z][A-Z]?)|(?:[2-9][A-Z]{1,2}))\d)" +
+            @"(?<callprefix>(?:(?:[A-PR-Z][A-Z]?)|(?:[2-9][A-Z]{1,2}))\d)" +
             // suffix
-            @"(?<callsuffix>\d{0,3}[A-Z]{1,6})" +
+            @"(?<callsuffix>\d{0,3}[A-Z]{1,8})" +
             // modifier
             @"(?<modifier>\/[\dA-Z]{1,4})?$",
             RegexOptions.Compiled);
@@ -55,7 +55,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <summary>
         /// Regular expression to match the use of priori
         /// </summary>
-        protected static Regex PrioriRegex = new Regex(@"^(a[1-6])$");
+        protected static Regex PrioriRegex = new Regex(@"^(a[1-6])$", RegexOptions.Compiled);
 
         /// <summary>
         /// Parse a <see cref="Decode"/> message into a <see cref="WsjtxQso"/>

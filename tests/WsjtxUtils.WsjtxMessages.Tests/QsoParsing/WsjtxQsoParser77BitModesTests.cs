@@ -261,6 +261,42 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("W9XYZ", qso.DECallsign);
             Assert.AreEqual("73", qso.Report);
             Assert.AreEqual(string.Empty, qso.GridSquare);
+
+            decode.Message = "CQ ON7WM JO21";
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.IsTrue(qso.IsCallingCQ);
+            Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("ON7WM", qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.Report);
+            Assert.AreEqual("JO21", qso.GridSquare);
+
+            decode.Message = "CQ VC9CATGIRL";
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.IsTrue(qso.IsCallingCQ);
+            Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("VC9CATGIRL", qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.Report);
+            Assert.AreEqual(string.Empty, qso.GridSquare);
+
+            decode.Message = "CQ OH4STAYHOME";
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.IsTrue(qso.IsCallingCQ);
+            Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("OH4STAYHOME", qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.Report);
+            Assert.AreEqual(string.Empty, qso.GridSquare);
+
+            decode.Message = "CQ 4J0STAYHOME";
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.IsTrue(qso.IsCallingCQ);
+            Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("4J0STAYHOME", qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.Report);
+            Assert.AreEqual(string.Empty, qso.GridSquare);            
         }
 
         [TestMethod()]
