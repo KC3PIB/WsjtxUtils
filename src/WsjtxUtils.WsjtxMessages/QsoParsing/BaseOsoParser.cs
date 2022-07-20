@@ -47,7 +47,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
             // prefix
             @"(?<callprefix>(?:(?:[A-PR-Z][A-Z]?)|(?:[2-9][A-Z]{1,2}))\d)" +
             // suffix
-            @"(?<callsuffix>\d{0,3}[A-Z]{1,7})" +
+            @"(?<callsuffix>\d{0,3}[A-Z]{1,8})" +
             // modifier
             @"(?<modifier>\/[\dA-Z]{1,4})?$",
             RegexOptions.Compiled);

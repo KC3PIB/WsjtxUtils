@@ -279,6 +279,24 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("VC9CATGIRL", qso.DECallsign);
             Assert.AreEqual(string.Empty, qso.Report);
             Assert.AreEqual(string.Empty, qso.GridSquare);
+
+            decode.Message = "CQ OH4STAYHOME";
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.IsTrue(qso.IsCallingCQ);
+            Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("OH4STAYHOME", qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.Report);
+            Assert.AreEqual(string.Empty, qso.GridSquare);
+
+            decode.Message = "CQ 4J0STAYHOME";
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.IsTrue(qso.IsCallingCQ);
+            Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("4J0STAYHOME", qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.Report);
+            Assert.AreEqual(string.Empty, qso.GridSquare);            
         }
 
         [TestMethod()]
