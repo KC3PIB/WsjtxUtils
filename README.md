@@ -17,7 +17,7 @@ Precompiled packages are available via NuGet.
 ## WsjtxUtils.WsjtxMessages
 The [WsjtxMessages](src/WsjtxUtils.WsjtxMessages) library contains the classes and methods needed to serialize and deserialize WSJT-X messages in the QT QDataStream format specified in the WSJT-X source code in [NetworkMessage.hpp](https://sourceforge.net/p/wsjt/wsjtx/ci/master/tree/Network/NetworkMessage.hpp).
 
-We can easily read messages from a memory source using the extensions methods provided.
+We can easily read messages from a memory source using the extension methods provided.
 ```csharp
 Memory<byte> source= new(new byte[] { 0xAD, 0xBC, 0xCB, 0xDA, 0x00, 0x00, ... };
 WsjtxMessage? message = source.DeserializeWsjtxMessage();

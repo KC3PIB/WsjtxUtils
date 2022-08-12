@@ -55,7 +55,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
         /// <summary>
         /// Regular expression to match the use of priori
         /// </summary>
-        protected static Regex PrioriRegex = new Regex(@"^(a[1-6])$", RegexOptions.Compiled);
+        protected static Regex PrioriRegex = new Regex(@"^(a[1-7])$", RegexOptions.Compiled);
 
         /// <summary>
         /// Parse a <see cref="Decode"/> message into a <see cref="WsjtxQso"/>
