@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using WsjtxUtils.WsjtxMessages.Messages;
 using WsjtxUtils.WsjtxMessages.QsoParsing;
@@ -297,6 +298,41 @@ namespace WsjtxUtils.WsjtxMessages.Tests.QsoParsing
             Assert.AreEqual("4J0STAYHOME", qso.DECallsign);
             Assert.AreEqual(string.Empty, qso.Report);
             Assert.AreEqual(string.Empty, qso.GridSquare);            
+        }
+
+        [TestMethod()]
+        public void WsjtxQsoParser_ParsesDateTimeCorrectly_WhenUsingDecodeTimeProperty()
+        {
+            var decode = new Decode()
+            {
+                Id = "WSJT-X",
+                Mode = "~",
+                Message = "CQ PJ4/K1ABC",
+                Time = 0
+            };
+
+            var qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(WsjtxQsoState.CallingCq, qso.QsoState);
+            Assert.IsTrue(qso.IsCallingCQ);
+            Assert.AreEqual(string.Empty, qso.CallingModifier);
+            Assert.AreEqual(string.Empty, qso.DXCallsign);
+            Assert.AreEqual("PJ4/K1ABC", qso.DECallsign);
+            Assert.AreEqual(string.Empty, qso.GridSquare);
+            Assert.AreEqual(DateTime.UtcNow.Date, qso.Time);
+
+
+            decode.Time = 43200000;
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(DateTime.UtcNow.Date.AddHours(12), qso.Time);
+
+            decode.Time = 43261000;
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(DateTime.UtcNow.Date.AddHours(12).AddMinutes(1).AddSeconds(1), qso.Time);
+
+            decode.Time = (uint)new Random().Next(1, 86399999);
+            qso = WsjtxQsoParser.ParseDecode(decode);
+            Assert.AreEqual(DateTime.UtcNow.Date.AddMilliseconds(decode.Time), qso.Time);
+
         }
 
         [TestMethod()]
