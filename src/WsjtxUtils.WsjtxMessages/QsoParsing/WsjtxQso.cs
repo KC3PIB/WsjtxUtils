@@ -30,7 +30,7 @@ namespace WsjtxUtils.WsjtxMessages.QsoParsing
             Source = decode;
             Mode = decode.Mode;
             LowConfidence = decode.LowConfidence;
-            Time = DateTime.UtcNow.Date.AddSeconds(decode.Time / 1000);
+            Time = DateTime.UtcNow.Date.AddMilliseconds(decode.Time);
 
             QsoState = WsjtxQsoState.Unknown;
             CallingModifier = callingModifier;
