@@ -181,7 +181,7 @@ namespace WsjtxUtils.WsjtxMessages
                     WriteUInt32(Convert.ToUInt32(value));
                     break;
                 case TypeCode.Int64:
-                    WriteInt64(Convert.ToUInt32(value));
+                    WriteInt64(Convert.ToInt64(value));
                     break;
                 case TypeCode.UInt64:
                     WriteUInt64(Convert.ToUInt64(value));
