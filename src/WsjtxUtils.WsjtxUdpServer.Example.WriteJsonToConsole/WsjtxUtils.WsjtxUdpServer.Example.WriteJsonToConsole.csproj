@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net6.0;net48</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net48</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -28,6 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS\WsjtxUtils.WsjtxUdpServer.Example.UpdateGridFromGPS.csproj" />
     <ProjectReference Include="..\WsjtxUtils.WsjtxUdpServer\WsjtxUtils.WsjtxUdpServer.csproj" />
   </ItemGroup>
 
