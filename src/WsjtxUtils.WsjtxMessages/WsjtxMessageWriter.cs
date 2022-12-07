@@ -167,7 +167,6 @@ namespace WsjtxUtils.WsjtxMessages
         /// <exception cref="NotImplementedException">Exception thrown if the underlying type is not implemented</exception>
         public void WriteEnum<T>(T value)
         {
-
             var enumType = typeof(T);
             var underlyingType = Enum.GetUnderlyingType(enumType);
             var typeCode = Type.GetTypeCode(underlyingType);
@@ -181,7 +180,7 @@ namespace WsjtxUtils.WsjtxMessages
                     WriteUInt32(Convert.ToUInt32(value));
                     break;
                 case TypeCode.Int64:
-                    WriteInt64(Convert.ToUInt32(value));
+                    WriteInt64(Convert.ToInt64(value));
                     break;
                 case TypeCode.UInt64:
                     WriteUInt64(Convert.ToUInt64(value));

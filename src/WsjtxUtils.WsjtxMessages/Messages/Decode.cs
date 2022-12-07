@@ -33,7 +33,7 @@
         public int Snr { get; set; }
 
         /// <summary>
-        /// Time offset in seconds relative to your computer clock
+        /// Time offset in seconds relative to the local computer clock
         /// </summary>
         public float OffsetTimeSeconds { get; set; }
 
