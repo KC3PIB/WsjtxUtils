@@ -1,5 +1,5 @@
 # WsjtxUtils
-A class library and usage examples related to interacting with [WSJT-X](https://physics.princeton.edu/pulsar/k1jt/wsjtx.html) through the UDP interface in .NET 6 and .NET Framework 4.8. This library allows for parsing and creating WSJT-X >= 2.2 messages and a lightweight UDP server that supports reading and writing WSJT-X messages utilizing async/await.
+A class library and usage examples related to interacting with [WSJT-X](https://physics.princeton.edu/pulsar/k1jt/wsjtx.html) through the UDP interface in .NET 7, 6, and .NET Framework 4.8. This library allows for parsing and creating WSJT-X >= 2.2 messages and a lightweight UDP server that supports reading and writing WSJT-X messages utilizing async/await.
 
 ## Packages
 Precompiled packages are available via NuGet.
