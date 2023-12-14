@@ -22,9 +22,9 @@ namespace WsjtxUtils.WsjtxUdpServer.Tests
         public void WsjtxUdpServerLocalhost_WithMockMessageHandler_ParsesMessagesAndExecutesCorrectMessageHandler()
         {
             // Arrange
-            var clientConnectedFunc = new Mock<Func<WsjtxConnectedClient, Task>?>();
-            var clientClosedFunc = new Mock<Func<WsjtxConnectedClient, Task>?>();
-            var clientExpiredFunc = new Mock<Func<WsjtxConnectedClient, Task>?>();
+            var clientConnectedFunc = new Mock<Func<WsjtxConnectedClient, Task>>();
+            var clientClosedFunc = new Mock<Func<WsjtxConnectedClient, Task>>();
+            var clientExpiredFunc = new Mock<Func<WsjtxConnectedClient, Task>>();
 
             var handler = new TestWsjtxUdpServerBaseAsyncMessageHandlerImpl()
             {

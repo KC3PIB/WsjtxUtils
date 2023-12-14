@@ -18,7 +18,8 @@ namespace WsjtxUtils.WsjtxMessages.Tests.Messages
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(Close));
 
-            Close message = result as Close;
+            Close? message = result as Close;
+            Assert.IsNotNull(message);
             Assert.AreEqual(WsjtxConstants.MagicNumber, message.MagicNumber);
             Assert.AreEqual(SchemaVersion.Version2, message.SchemaVersion);
             Assert.AreEqual(MessageType.Close, message.MessageType);

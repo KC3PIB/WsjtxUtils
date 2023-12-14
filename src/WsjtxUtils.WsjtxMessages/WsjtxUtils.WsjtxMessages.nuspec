@@ -13,7 +13,7 @@
     <copyright>$copyright$</copyright>
     <readme>README.md</readme>
     <dependencies>
-      <group targetFramework="net6.0" />
+      <group targetFramework="net8.0" />
     </dependencies>
   </metadata>
   <files>
