@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpGIS.NmeaParser" Version="2.2.2" />
+    <PackageReference Include="SharpGIS.NmeaParser" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
