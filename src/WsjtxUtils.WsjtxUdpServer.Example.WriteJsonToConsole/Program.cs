@@ -1,20 +1,48 @@
 ﻿using System;
 using System.Net;
 using System.Threading;
+using Microsoft.Extensions.Logging;
 using WsjtxUtils.WsjtxUdpServer;
 using WsjtxUtils.WsjtxUdpServer.Example.WriteJsonToConsole;
 
 // parse command line for server address and port
-IPAddress address = args.Length >= 1 ? IPAddress.Parse(args[0]) : IPAddress.Loopback;
-int port = args.Length >= 2 ? int.Parse(args[1]) : 2237;
+IPAddress address = args.Length >= 1
+    ? IPAddress.Parse(args[0])
+    : IPAddress.Loopback;
+int port = args.Length >= 2
+    ? int.Parse(args[1])
+    : 2237;
+
+// build a Console logger factory
+using var loggerFactory = LoggerFactory.Create(builder =>
+{
+    builder
+        .AddSimpleConsole(options =>
+        {
+            options.IncludeScopes = false;
+            options.SingleLine = true;
+            options.TimestampFormat = "HH:mm:ss ";
+        })
+        .SetMinimumLevel(LogLevel.Debug);
+});
+
+// create a strongly‐typed logger for WsjtxUdpServer
+ILogger<WsjtxUdpServer> logger =
+    loggerFactory.CreateLogger<WsjtxUdpServer>();
 
 // create token source and setup the message handler
 CancellationTokenSource cancellationTokenSource = GenerateCancellationTokenSource();
 IWsjtxUdpMessageHandler messageHandler = new WriteMessageToConsoleAsJsonHandler();
 
 // setup and start the WSJT-X UDP server
-using var server = new WsjtxUdpServer(messageHandler, address, port);
-Console.WriteLine($"Starting UDP server: {server.LocalEndpoint.Address}:{server.LocalEndpoint.Port} IsMulticast:{server.IsMulticast} {(server.IsMulticast ? address : string.Empty)}");
+using var server = new WsjtxUdpServer(
+    messageHandler,
+    address,
+    port,
+    // We use 1500 as the buffer size, which is the default MTU size of internet based traffic
+    WsjtxUdpServer.DefaultMtu,
+    logger
+);
 server.Start(cancellationTokenSource);
 
 // do stuff while the server is running
