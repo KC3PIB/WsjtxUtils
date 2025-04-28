@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0;net8.0;net48</TargetFrameworks>
+    <TargetFrameworks>net6.0;net8.0;net9.0;net48</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -39,7 +39,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4" />
+    <!-- for .NET 9 -->
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4"
+                      Condition="'$(TargetFramework)' == 'net9.0'" />
+
+    <!-- for .NET 8 -->
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1"
+                      Condition="'$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net8.0'" />
+
+    <!-- for .NET 6 -->
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.1"
+                      Condition="'$(TargetFramework)' == 'net6.0'" />
+
+    <!-- for .NET Framework 4.8 use the Abstractions package (or your lowest-supported version) -->
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4"
+                      Condition="'$(TargetFramework)' == 'net48'" />
   </ItemGroup>
 
 </Project>

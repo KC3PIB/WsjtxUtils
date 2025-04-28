@@ -4,7 +4,13 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
-    <TargetFrameworks>net9.0;net8.0;net48</TargetFrameworks>
+    <TargetFrameworks>net6.0;net8.0;net9.0;net48</TargetFrameworks>
+    <NoWarn>$(NoWarn);CS8600;CS8602</NoWarn>
+  </PropertyGroup>
+
+  <!-- suppress “package not tested on this TFM” for net7 & net6 -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0' Or '$(TargetFramework)' == 'net6.0'">
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <ItemGroup>
