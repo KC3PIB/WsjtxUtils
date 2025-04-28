@@ -238,7 +238,7 @@ namespace WsjtxUtils.WsjtxUdpServer
 
             // cleanup datagram loop
             _cancellationTokenSource?.Cancel();
-            _handleDatagramsTask?.GetAwaiter().GetResult(); // block until done
+            _handleDatagramsTask?.Wait(2500); // Give time to handle the packet
 
             if (disposing)
             {
