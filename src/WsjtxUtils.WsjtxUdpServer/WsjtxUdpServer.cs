@@ -20,7 +20,7 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// The value used for the Default Maximum Transmission Unit (MTU)
         /// </summary>
         public const int DefaultMtu = 1500;
-        
+
         /// <summary>
         /// Size of the datagram buffers in bytes
         /// </summary>
@@ -71,14 +71,12 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// </summary>
         public IPEndPoint LocalEndpoint { get; private set; }
 
-        /// <summary>
-        /// Constructor for WSJT-X UDP server
-        /// </summary>
-        /// <param name="wsjtxUdpMessageHandler"></param>
-        /// <param name="address"></param>
-        /// <param name="port"></param>
-        /// <param name="datagramBufferSize"></param>
-        /// <param name="logger"></param>
+        /// <summary>Creates a new WSJT-X UDP server.</summary>
+        /// <param name="wsjtxUdpMessageHandler">The handler invoked for each decoded message.</param>
+        /// <param name="address">The local address to bind (use a multicast address to auto-subscribe).</param>
+        /// <param name="port">UDP port to listen on. Defaults to 2237.</param>
+        /// <param name="datagramBufferSize">Size of the reception buffer in bytes.</param>
+        /// <param name="logger">Optional logger; if null, a no-op logger is used.</param>
         public WsjtxUdpServer(IWsjtxUdpMessageHandler wsjtxUdpMessageHandler, IPAddress address, int port = 2237,
             int datagramBufferSize = DefaultMtu, ILogger<WsjtxUdpServer>? logger = null)
         {
@@ -104,8 +102,14 @@ namespace WsjtxUtils.WsjtxUdpServer
 
             // if multicast join the group
             if (IsMulticast)
-                _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership,
-                    new MulticastOption(address, LocalEndpoint.Address));
+            {
+                if (address.AddressFamily == AddressFamily.InterNetwork)
+                    _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership,
+                        new MulticastOption(address, LocalEndpoint.Address));
+                else
+                    _socket.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.AddMembership,
+                        new IPv6MulticastOption(address));
+            }
         }
 
         /// <summary>
@@ -122,7 +126,8 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="cancellationTokenSource"></param>
         public void Start(CancellationTokenSource? cancellationTokenSource = null)
         {
-            _logger.LogInformation("Starting WSJT-X UDP server on {Endpoint} (multicast={IsMulticast})", LocalEndpoint, IsMulticast);
+            _logger.LogInformation("Starting WSJT-X UDP server on {Endpoint} (multicast={IsMulticast})", LocalEndpoint,
+                IsMulticast);
 
             if (IsRunning)
                 throw new InvalidOperationException("The server is already running.");
@@ -231,13 +236,15 @@ namespace WsjtxUtils.WsjtxUdpServer
             if (IsDisposed)
                 return;
 
-            // unmanaged items
+            // cleanup datagram loop
+            _cancellationTokenSource?.Cancel();
+            _handleDatagramsTask?.GetAwaiter().GetResult(); // block until done
 
             if (disposing)
             {
                 // managed items
                 _cancellationTokenSource?.Dispose();
-                _socket?.Dispose();
+                _socket.Dispose();
             }
 
             IsDisposed = true;
@@ -265,12 +272,21 @@ namespace WsjtxUtils.WsjtxUdpServer
      await _socket.ReceiveFromAsync(datagramBuffer, SocketFlags.None, LocalEndpoint, cancellationToken);
 #endif
 
+                    // check that we actually read some data
+                    if (result.ReceivedBytes <= 0)
+                    {
+                        _logger?.LogWarning("No data was read from socket for endpoint {RemoteEndpoint}, skipping.",
+                            result.RemoteEndPoint);
+                        continue;
+                    }
+
                     // extract the framed packet based on the number of bytes that were read
                     var frame = datagramBuffer.AsMemory(0, result.ReceivedBytes);
                     var message = frame.DeserializeWsjtxMessage();
                     if (message is null)
                     {
-                        _logger?.LogWarning("Received invalid or null WSJT-X frame, skipping.");
+                        _logger?.LogWarning("Received invalid or null WSJT-X frame from {RemoteEndpoint}, skipping.",
+                            result.RemoteEndPoint);
                         continue;
                     }
 
