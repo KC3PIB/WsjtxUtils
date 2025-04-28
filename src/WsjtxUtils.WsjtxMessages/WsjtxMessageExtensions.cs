@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using WsjtxUtils.WsjtxMessages.Messages;
 
 namespace WsjtxUtils.WsjtxMessages
@@ -52,11 +50,15 @@ namespace WsjtxUtils.WsjtxMessages
             var reader = new WsjtxMessageReader(source);
             MessageType messageType = reader.PeekMessageType();
             var result = messageType.CreateDefaultMessage();
+            
+            if (result is null)
+                return result;
 
             if (result is not IWsjtxDirectionOut)
-                throw new NotImplementedException($"The message type {messageType} does not implement IWsjtxDirectionOut");
+                throw new NotImplementedException(
+                    $"The message type {messageType} does not implement IWsjtxDirectionOut");
 
-            result?.ReadMessage(reader);
+            result.ReadMessage(reader);
             return result;
         }
 

@@ -18,7 +18,8 @@ namespace WsjtxUtils.WsjtxMessages
         public WsjtxMessageReader(Memory<byte> source) : base(source)
         {
             if (source.Length < WsjtxConstants.HeaderLengthInBytes)
-                throw new ArgumentException($"Expecting greater than {WsjtxConstants.HeaderLengthInBytes} bytes for a valid message, {buffer.Length} found.");
+                throw new ArgumentException(
+                    $"Expecting greater than {WsjtxConstants.HeaderLengthInBytes} bytes for a valid message, {buffer.Length} found.");
 
             if (!StartsWithMagicNumber(source.Span))
                 throw new ArgumentException($"Expecting magic number 0xadbccbda, not found.");
@@ -164,7 +165,8 @@ namespace WsjtxUtils.WsjtxMessages
             if (size == 0 || size == uint.MaxValue)
                 return string.Empty;
 
-            if (MemoryMarshal.TryGetArray(buffer.Slice(Position), out ArraySegment<byte> segment) && segment.Array != null)
+            if (MemoryMarshal.TryGetArray(buffer.Slice(Position), out ArraySegment<byte> segment) &&
+                segment.Array != null)
             {
                 var length = Convert.ToInt32(size);
                 Position += length;
@@ -217,7 +219,8 @@ namespace WsjtxUtils.WsjtxMessages
             {
                 TypeCode.UInt32 => ReadUInt32(),
                 TypeCode.Byte => ReadByte(),
-                _ => throw new NotImplementedException($"Enum {enumType.Name} has a type of {underlyingType.Name} which is not implemented")
+                _ => throw new NotImplementedException(
+                    $"Enum {enumType.Name} has a type of {underlyingType.Name} which is not implemented")
             };
 
             return (T)Enum.ToObject(enumType, value);
@@ -255,7 +258,7 @@ namespace WsjtxUtils.WsjtxMessages
                     kind = DateTimeKind.Utc;
                     break;
                 case Timespec.OffsetFromUTCSeconds:
-                    result.AddSeconds(ReadInt32());
+                    result = result.AddSeconds(ReadInt32());
                     kind = DateTimeKind.Utc;
                     break;
                 default:
