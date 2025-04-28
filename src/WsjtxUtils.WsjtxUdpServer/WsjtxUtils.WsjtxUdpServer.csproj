@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net8.0;net9.0;net48</TargetFrameworks>
@@ -48,7 +48,7 @@
                       Condition="'$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net8.0'" />
 
     <!-- for .NET 6 -->
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.1"
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4"
                       Condition="'$(TargetFramework)' == 'net6.0'" />
 
     <!-- for .NET Framework 4.8 use the Abstractions package (or your lowest-supported version) -->
