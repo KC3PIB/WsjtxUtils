@@ -37,6 +37,12 @@ jobs:
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
 
     steps:
+    # Install .NET 9
+    - name: Install .NET 9
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 9.0.x
+
     - name: Checkout repository
       uses: actions/checkout@v4
 
