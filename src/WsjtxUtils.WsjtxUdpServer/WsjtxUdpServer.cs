@@ -270,7 +270,7 @@ namespace WsjtxUtils.WsjtxUdpServer
                     var message = frame.DeserializeWsjtxMessage();
                     if (message is null)
                     {
-                        _logger?.LogWarning("Received unsupported WSJT-X frame, skipping.");
+                        _logger?.LogWarning("Received invalid or null WSJT-X frame, skipping.");
                         continue;
                     }
 

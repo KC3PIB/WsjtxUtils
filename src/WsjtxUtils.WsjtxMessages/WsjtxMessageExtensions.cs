@@ -45,11 +45,14 @@ namespace WsjtxUtils.WsjtxMessages
         /// <param name="source">Source memory</param>
         /// <exception cref="NotImplementedException">Exception thrown if the message type does not implement <see cref="IWsjtxDirectionOut"/></exception>
         /// <returns>A WSJT-X message</returns>
-        public static WsjtxMessage DeserializeWsjtxMessage(this Memory<byte> source)
+        public static WsjtxMessage? DeserializeWsjtxMessage(this Memory<byte> source)
         {
             var reader = new WsjtxMessageReader(source);
             MessageType messageType = reader.PeekMessageType();
             var result = messageType.CreateDefaultMessage();
+            
+            if (result is null)
+                return result;
 
             if (result is not IWsjtxDirectionOut)
                 throw new NotImplementedException(
