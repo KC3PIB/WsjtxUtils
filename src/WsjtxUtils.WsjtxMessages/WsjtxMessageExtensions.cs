@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using WsjtxUtils.WsjtxMessages.Messages;
 
 namespace WsjtxUtils.WsjtxMessages
@@ -47,16 +45,17 @@ namespace WsjtxUtils.WsjtxMessages
         /// <param name="source">Source memory</param>
         /// <exception cref="NotImplementedException">Exception thrown if the message type does not implement <see cref="IWsjtxDirectionOut"/></exception>
         /// <returns>A WSJT-X message</returns>
-        public static WsjtxMessage? DeserializeWsjtxMessage(this Memory<byte> source)
+        public static WsjtxMessage DeserializeWsjtxMessage(this Memory<byte> source)
         {
             var reader = new WsjtxMessageReader(source);
             MessageType messageType = reader.PeekMessageType();
             var result = messageType.CreateDefaultMessage();
 
             if (result is not IWsjtxDirectionOut)
-                throw new NotImplementedException($"The message type {messageType} does not implement IWsjtxDirectionOut");
+                throw new NotImplementedException(
+                    $"The message type {messageType} does not implement IWsjtxDirectionOut");
 
-            result?.ReadMessage(reader);
+            result.ReadMessage(reader);
             return result;
         }
 
