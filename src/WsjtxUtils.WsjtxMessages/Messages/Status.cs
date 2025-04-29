@@ -173,6 +173,11 @@
             SubMode = reader.ReadString();
             FastMode = reader.ReadBool();
             SpecialOperationMode = reader.ReadSpecialOperationMode();
+
+            // check if there is any remaining data. this is a workaround for #113, JTDX status packets
+            if(!reader.IsDataAvailable())
+                return;
+
             FrequencyTolerance = reader.ReadUInt32();
             TRPeriod = reader.ReadUInt32();
             ConfigurationName = reader.ReadString();
