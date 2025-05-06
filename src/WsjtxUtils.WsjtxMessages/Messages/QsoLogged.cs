@@ -141,9 +141,15 @@ namespace WsjtxUtils.WsjtxMessages.Messages
             OperatorCall = messageReader.ReadString();
             MyCall = messageReader.ReadString();
             MyGrid = messageReader.ReadString();
+
+            // check if there is any remaining data. this is a workaround for #113, JTDX packets
+            if (!messageReader.IsDataAvailable())
+                return;
+            
             ExchangeSent = messageReader.ReadString();
             ExchangeReceived = messageReader.ReadString();
-
+            
+            // check if this is a newer WSJT-X packet with Propagation Mode
             if (messageReader.IsDataAvailable())
                 AdifPropagationMode = messageReader.ReadString();
         }
