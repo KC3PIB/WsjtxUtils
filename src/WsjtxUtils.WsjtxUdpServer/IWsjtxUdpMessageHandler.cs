@@ -18,7 +18,8 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="endPoint"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task HandleHeartbeatMessageAsync(WsjtxUdpServer server, Heartbeat message, EndPoint endPoint, CancellationToken cancellationToken = default);
+        Task HandleHeartbeatMessageAsync(WsjtxUdpServer server, Heartbeat message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Handle WSJT-X <see cref="Status"/> messages
@@ -28,7 +29,8 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="endPoint"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task HandleStatusMessageAsync(WsjtxUdpServer server, Status message, EndPoint endPoint, CancellationToken cancellationToken = default);
+        Task HandleStatusMessageAsync(WsjtxUdpServer server, Status message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Handle WSJT-X <see cref="Decode"/> messages
@@ -38,7 +40,8 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="endPoint"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task HandleDecodeMessageAsync(WsjtxUdpServer server, Decode message, EndPoint endPoint, CancellationToken cancellationToken = default);
+        Task HandleDecodeMessageAsync(WsjtxUdpServer server, Decode message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Handle WSJT-X <see cref="Clear"/> messages
@@ -48,7 +51,8 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="endPoint"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task HandleClearMessageAsync(WsjtxUdpServer server, Clear message, EndPoint endPoint, CancellationToken cancellationToken = default);
+        Task HandleClearMessageAsync(WsjtxUdpServer server, Clear message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Handle WSJT-X <see cref="QsoLogged"/> messages
@@ -58,7 +62,8 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="endPoint"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task HandleQsoLoggedMessageAsync(WsjtxUdpServer server, QsoLogged message, EndPoint endPoint, CancellationToken cancellationToken = default);
+        Task HandleQsoLoggedMessageAsync(WsjtxUdpServer server, QsoLogged message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Handle WSJT-X <see cref="Close"/> messages
@@ -68,7 +73,8 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="endPoint"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task HandleClosedMessageAsync(WsjtxUdpServer server, Close message, EndPoint endPoint, CancellationToken cancellationToken = default);
+        Task HandleClosedMessageAsync(WsjtxUdpServer server, Close message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Handle WSJT-X <see cref="WSPRDecode"/> messages
@@ -78,7 +84,8 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="endPoint"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task HandleWSPRDecodeMessageAsync(WsjtxUdpServer server, WSPRDecode message, EndPoint endPoint, CancellationToken cancellationToken = default);
+        Task HandleWSPRDecodeMessageAsync(WsjtxUdpServer server, WSPRDecode message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Handle WSJT-X <see cref="LoggedAdif"/> messages
@@ -88,6 +95,18 @@ namespace WsjtxUtils.WsjtxUdpServer
         /// <param name="endPoint"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task HandleLoggedAdifMessageAsync(WsjtxUdpServer server, LoggedAdif message, EndPoint endPoint, CancellationToken cancellationToken = default);
+        Task HandleLoggedAdifMessageAsync(WsjtxUdpServer server, LoggedAdif message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Handle WSJT-X <see cref="AnnotationInfo"/> messages
+        /// </summary>
+        /// <param name="server"></param>
+        /// <param name="message"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task HandleAnnotationInfoMessageAsync(WsjtxUdpServer server, AnnotationInfo message, EndPoint endPoint,
+            CancellationToken cancellationToken = default);
     }
 }

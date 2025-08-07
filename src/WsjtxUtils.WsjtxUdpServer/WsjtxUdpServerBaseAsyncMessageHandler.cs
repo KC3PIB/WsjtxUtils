@@ -159,6 +159,20 @@ namespace WsjtxUtils.WsjtxUdpServer
             AddUpdateOrExpireClient(message.Id, endPoint);
             return Task.CompletedTask;
         }
+        
+        /// <summary>
+        /// Handle WSJT-X <see cref="AnnotationInfo"/> messages
+        /// </summary>
+        /// <param name="server"></param>
+        /// <param name="message"></param>
+        /// <param name="endPoint"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual Task HandleAnnotationInfoMessageAsync(WsjtxUdpServer server, AnnotationInfo message, EndPoint endPoint, CancellationToken cancellationToken = default)
+        {
+            AddUpdateOrExpireClient(message.Id, endPoint);
+            return Task.CompletedTask;
+        }
         #endregion
 
         #region Private Methods
