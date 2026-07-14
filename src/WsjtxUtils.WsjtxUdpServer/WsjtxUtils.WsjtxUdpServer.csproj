@@ -40,19 +40,19 @@
 
   <ItemGroup>
     <!-- for .NET 9 -->
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4"
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.10"
                       Condition="'$(TargetFramework)' == 'net9.0'" />
 
     <!-- for .NET 8 -->
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1"
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.10"
                       Condition="'$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net8.0'" />
 
     <!-- for .NET 6 -->
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.1"
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.10"
                       Condition="'$(TargetFramework)' == 'net6.0'" />
 
     <!-- for .NET Framework 4.8 use the Abstractions package (or your lowest-supported version) -->
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4"
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10"
                       Condition="'$(TargetFramework)' == 'net48'" />
   </ItemGroup>
 
